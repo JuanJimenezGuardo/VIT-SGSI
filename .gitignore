@@ -47,3 +47,8 @@ yarn-error.log
 # Documentation drafts (local only)
 *.md
 !README.md
+!PLAN_EQUIPOS_SPRINT_1.md
+!ASIGNACIONES_SPRINT_1_A_6.md
+!SPRINT_1_GUIA_BACKEND.md
+!CHECKLIST_SEMANAL_SPRINT_1.md
+!MONITOREO_SEMANAL.md

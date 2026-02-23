@@ -1,0 +1,474 @@
+# 📋 Asignaciones por Sprint (Sprint 1-6)
+
+Desglose día a día y semana a semana de qué construye cada rol. Esto se actualiza cada lunes en la reunión.
+
+---
+
+## ✅ SPRINT 1 (19 feb → 2 mar) — Seguridad Base + Auth
+
+Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real"
+
+### Arquitecto (3pleJ)
+
+**Semana 1 (19-23 feb):**
+- [ ] Diseñar estructura de permisos (Admin, Consultant, Client)
+- [ ] Diseñar modelo ProjectUser y sus relaciones
+- [ ] Diseñar estructura mínima de AuditLog
+- [ ] Documentar en SPRINT_1_GUIA_BACKEND.md (paso a paso)
+- [ ] Decisión: JWT vs OAuth (documentar por qué JWT)
+
+**Semana 2 (24-28 feb):**
+- [ ] Implementar modelo User (migrar a AbstractUser)
+- [ ] Crear clases de permiso (IsAdmin, IsConsultant, IsClient)
+- [ ] Crear modelo ProjectUser con serializer + viewset
+- [ ] Implementar signals para AuditLog básico
+- [ ] Code review: Revisar +2 PRs de Osky
+- [ ] Hacer los ajustes que POS-review requieran
+
+**Semana 3 (1-2 mar):**
+- [ ] Validar arquitectura final
+- [ ] Hacer ajustes si es necesario
+- [ ] Preparar demo del sprint
+
+**Output esperado:**
+- User model hereda de AbstractUser ✅
+- JWT funcionando: `/api/token/` devuelve access+refresh ✅
+- 3 clases de permiso creadas y aplicadas ✅
+- ProjectUser: CRUD funcionando ✅
+- AuditLog: registra CREATE/UPDATE/DELETE ✅
+- 0 errores 500 en endpoints ✅
+
+---
+
+### Backend Implementador (Osky)
+
+**Semana 1 (19-23 feb):**
+- [ ] Leer SPRINT_1_GUIA_BACKEND.md completo
+- [ ] Configurar AbstractUser en models.py
+- [ ] Instalar SimpleJWT (`pip install djangorestframework-simplejwt`)
+- [ ] Configurar settings.py (AUTH_USER_MODEL, REST_FRAMEWORK)
+- [ ] Configurar urls.py (`/api/token/` y `/api/token/refresh/`)
+- [ ] Hacer 3+ commits de esto
+- [ ] Preguntar cualquier cosa que NO esté clara en la especificación
+
+**Semana 2 (24-28 feb):**
+- [ ] Crear modelo ProjectUser (user, project, role, unique_together)
+- [ ] Crear serializer y viewset para ProjectUser
+- [ ] Crear endpoint `/api/project-users/`
+- [ ] Tests básicos: crear, leer, validations
+- [ ] Implementar signals para AuditLog
+- [ ] PR al viernes (Arquitecto revisa)
+- [ ] Hacer 3+ commits
+
+**Semana 3 (1-2 mar):**
+- [ ] Ajustes post-review (si hay)
+- [ ] Demo: mostrar en Postman:
+  - Login → recibe tokens
+  - Endpoint sin token → 401
+  - Endpoint con token → funciona
+  - ProjectUser CRUD → funciona
+
+**Output esperado:**
+- [ ] AbstractUser migrado sin errores
+- [ ] JWT tokens generados y funcionales
+- [ ] ProjectUser con validaciones
+- [ ] AuditLog guardando eventos
+- [ ] 3+ commits por semana mínimo
+- [ ] 1-2 PRs descriptivos
+- [ ] 0 errores en endpoints
+
+---
+
+### Frontend Developer (Tinky)
+
+**Semana 1 (19-23 feb):**
+- [ ] Crear página Login
+- [ ] Crear PrivateRoute (proteger rutas)
+- [ ] Crear layout base (header, sidebar)
+- [ ] Conectar login con `/api/token/` (esperar a que Osky termine)
+- [ ] Guardar token en localStorage
+- [ ] 3+ commits
+
+**Semana 2 (24-28 feb):**
+- [ ] Crear página "Mis Proyectos"
+- [ ] Conectar con GET `/api/projects/` (esperar a que Osky termine)
+- [ ] Crear página "Detalle Proyecto"
+- [ ] Button "Crear Proyecto" (aunque POST todavía no se use)
+- [ ] PR al viernes
+- [ ] 3+ commits
+
+**Semana 3 (1-2 mar):**
+- [ ] Ajustes post-review (si hay)
+- [ ] Demo: mostrar en navegador:
+  - Login → redirecciona a Dashboard
+  - Sin token → redirecciona a Login
+  - Lista de proyectos visible
+  - Detalle abre
+
+**Output esperado:**
+- [ ] Login funciona y guarda token
+- [ ] Rutas protegidas redirigen
+- [ ] Dashboard lista proyectos
+- [ ] 3+ commits por semana
+- [ ] 1-2 PRs descriptivos
+- [ ] 0 crashes en React
+
+---
+
+---
+
+## ✅ SPRINT 2 (3-16 mar) — Scope + Assets (SGSI Base)
+
+### Arquitecto (3pleJ)
+
+**Semana 1 (3-7 mar):**
+- [ ] Diseñar modelo Scope (alcance, exclusiones, justificación, estado)
+- [ ] Diseñar modelo Asset (inventario, denominación, clasificación, propietario)
+- [ ] Definir validaciones (un asset siempre tiene un proyecto)
+- [ ] Definir relación Scope ↔ Project (1-N)
+- [ ] Documentar en README
+
+**Semana 2 (10-14 mar):**
+- [ ] Revisar implementación de Osky
+- [ ] Code review de Scope + Asset models
+- [ ] Validar que endpoints sean correctos
+
+**Semana 3 (16 mar):**
+- [ ] Demo
+
+---
+
+### Backend Implementador (Osky)
+
+**Semana 1 (3-7 mar):**
+- [ ] Crear modelo Scope (siguiendo especificación definida)
+- [ ] Crear modelo Asset (siguiendo especificación definida)
+- [ ] Crear serializers
+- [ ] Crear viewsets
+- [ ] Endpoints: `/api/scopes/`, `/api/assets/`
+
+**Semana 2 (10-14 mar):**
+- [ ] Tests básicos
+- [ ] PR al viernes
+- [ ] Code review → arreglar si Tú sugiere cambios
+
+**Semana 3 (16 mar):**
+- [ ] Demo
+
+---
+
+### Frontend Developer (Tinky)
+
+**Semana 1 (3-7 mar):**
+- [ ] Crear página "Alcance del Proyecto"
+- [ ] Crear página "Inventario de Activos"
+- [ ] Ambas con tabs en el detalle del proyecto
+
+**Semana 2 (10-14 mar):**
+- [ ] CRUD: crear, editar, listar, borrar (Scope y Asset)
+- [ ] Formularios con validación básica
+- [ ] PR al viernes
+
+**Semana 3 (16 mar):**
+- [ ] Demo
+
+---
+
+---
+
+## ✅ SPRINT 3 (17-30 mar) — Riesgos (CRÍTICO PARA NOTA)
+
+### Arquitecto (3pleJ)
+
+**Semana 1 (17-21 mar):**
+- [ ] Diseñar modelo Risk (TODO DETALLADO)
+  - [ ] Campos inherentes: prob (1-5), impact (1-5), score
+  - [ ] Campos residuales: prob, impact, score
+  - [ ] Tratamiento: Aceptar/Mitigar/Transferir/Evitar
+  - [ ] Score = probabilidad × impacto
+- [ ] Diseñar relación Risk ↔ Asset (N:M)
+- [ ] Documentar fórmula en README (1 página mínimo)
+- [ ] Validaciones de negocio
+
+**Semana 2 (24-28 mar):**
+- [ ] Revisar implementación de modelo Risk
+- [ ] Revisar cálculo automático de scores
+- [ ] Revisar relación N:M correcta
+
+**Semana 3 (30 mar):**
+- [ ] Demo
+
+---
+
+### Backend Implementador (Osky)
+
+**Semana 1 (17-21 mar):**
+- [ ] Crear modelo Risk según especificación del Arquitecto
+- [ ] Campos: descripción, causa, consecuencia, dueño, fechas, estado
+- [ ] Relación N:M Risk ↔ Asset
+- [ ] Signal automático: cuando cambias "tratamiento" → recalcula "residual"
+
+**Semana 2 (24-28 mar):**
+- [ ] Crear serializer Risk (con scores calculados)
+- [ ] Crear viewset Risk
+- [ ] Endpoint: `/api/projects/{id}/risks/`
+- [ ] Tests (validar que scores se calculan)
+- [ ] PR
+
+**Semana 3 (30 mar):**
+- [ ] Ajustes, demo
+
+---
+
+### Frontend Developer (Tinky)
+
+**Semana 1 (17-21 mar):**
+- [ ] Página "Riesgos" en detalle proyecto
+- [ ] Tabla de riesgos con score (mostrando inherit y residual)
+- [ ] Columnas: descripción, probabilidad, impacto, score, estado
+
+**Semana 2 (24-28 mar):**
+- [ ] Form crear riesgo
+- [ ] Asociar activos (multiselect)
+- [ ] Form editar tratamiento
+- [ ] Mostrar cambio automático de score residual
+- [ ] PR
+
+**Semana 3 (30 mar):**
+- [ ] Demo
+
+---
+
+---
+
+## ✅ SPRINT 4 (31 mar - 13 abr) — SoA + ISO Controls
+
+### Arquitecto (3pleJ)
+
+**Semana 1 (31 mar - 4 abr):**
+- [ ] Diseñar modelo ISOControl (solo lectura, 93 controles)
+- [ ] Diseñar modelo SoAItem (aplicabilidad, estado, justificación)
+- [ ] Decidir: SoA generado automático vs botón "generar"
+- [ ] Documentar estructura
+
+**Semana 2 (7-11 abr):**
+- [ ] Revisar carga de 93 controles
+- [ ] Validar generación automática de SoA
+- [ ] Code review
+
+---
+
+### Backend Implementador (Osky)
+
+**Semana 1 (31 mar - 4 abr):**
+- [ ] Crear modelo ISOControl (campos: código, nombre, descripción)
+- [ ] Crear fixture con 93 controles ISO 27001 (CSV o JSON)
+- [ ] `python manage.py loaddata iso_controls.json`
+
+**Semana 2 (7-11 abr):**
+- [ ] Crear modelo SoAItem
+- [ ] Crear signal: cuando creas Project → genera SoAItem para TODOS los ISOControl
+- [ ] Crear serializer y viewset SoAItem
+- [ ] Endpoint: `/api/projects/{id}/soa/`
+- [ ] PR
+
+---
+
+### Frontend Developer (Tinky)
+
+**Semana 1 (31 mar - 4 abr):**
+- [ ] Página "SoA" en detalle proyecto
+- [ ] Lista de 93 controles
+
+**Semana 2 (7-11 abr):**
+- [ ] Checkbox "aplicable"
+- [ ] Campo "justificación" (textarea)
+- [ ] Dropdown "estado" (No aplicable/Sin implementar/En proceso/Implementado)
+- [ ] Guardar cambios
+- [ ] Buscar/filtrar controles
+- [ ] PR
+
+---
+
+---
+
+## ✅ SPRINT 5 (14-27 abr) — Evidencias + Auditoria Completa
+
+### Arquitecto (3pleJ)
+
+**Semana 1 (14-18 abr):**
+- [ ] Diseñar modelo Evidence (archivo, estado, fecha)
+- [ ] Diseñar estados: Pendiente/Aprobado/Rechazado
+- [ ] Relación Evidence ↔ SoAItem
+
+**Semana 2 (21-25 abr):**
+- [ ] Revisar subida de archivos
+- [ ] Validar AuditLog completo (Risk, SoAItem, Evidence, Document)
+- [ ] Code review
+
+---
+
+### Backend Implementador (Osky)
+
+**Semana 1 (14-18 abr):**
+- [ ] Crear modelo Evidence (file, status, uploaded_at, uploaded_by)
+- [ ] Implementar subida de archivo
+- [ ] Validar que Evidence está vinculada a SoAItem
+
+**Semana 2 (21-25 abr):**
+- [ ] Crear serializer y viewset
+- [ ] Endpoint: `/api/projects/{id}/evidence/`
+- [ ] Endpoint: cambiar estado de evidence
+- [ ] Extender AuditLog a Evidence, Risk, SoAItem
+- [ ] PR
+
+---
+
+### Frontend Developer (Tinky)
+
+**Semana 1 (14-18 abr):**
+- [ ] Página "Evidencias" en detalle proyecto
+- [ ] Tabla con evidencias (archivo, estado, fecha)
+
+**Semana 2 (21-25 abr):**
+- [ ] Button subir evidencia (input file)
+- [ ] Mostrar estado (badge de color)
+- [ ] Tabla de logs (quién cambió qué y cuándo)
+- [ ] PR
+
+---
+
+---
+
+## ✅ SPRINT 6 (28 abr - 11 may) — Reportes + Dashboard
+
+### Arquitecto (3pleJ)
+
+**Semana 1 (28 abr - 2 may):**
+- [ ] Definir qué incluye Report
+- [ ] Definir métricas clave:
+  - % controles con evidencia
+  - # riesgos altos
+  - % tareas completadas
+- [ ] Estructura JSON
+
+**Semana 2 (5-9 may):**
+- [ ] Revisar endpoints de métricas
+- [ ] Code review
+
+---
+
+### Backend Implementador (Osky)
+
+**Semana 1 (28 abr - 2 may):**
+- [ ] Crear modelo Report
+- [ ] Crear endpoint `/api/projects/{id}/metrics/` que devuelva:
+  ```json
+  {
+    "control_compliance": "45%",
+    "high_risks": 3,
+    "tasks_completed": "60%",
+    "soa_status": "15/93 implementados"
+  }
+  ```
+
+**Semana 2 (5-9 may):**
+- [ ] Crear endpoint para generar Report
+- [ ] Tests básicos
+- [ ] PR
+
+---
+
+### Frontend Developer (Tinky)
+
+**Semana 1 (28 abr - 2 may):**
+- [ ] Dashboard Consultant (mostrando proyectos, métricas)
+- [ ] Dashboard Client (progreso, evidencias pendientes)
+
+**Semana 2 (5-9 may):**
+- [ ] Cards con métricas (% compliance, # riesgos, etc.)
+- [ ] Gráficas básicas (progress bar, badges)
+- [ ] Links rápidos a secciones principales
+- [ ] PR
+
+---
+
+---
+
+## 📅 BUFFER (12-15 may) — QA + Demo Final
+
+### Equipo Completo
+
+- [ ] Pruebas completas (flujo end-to-end)
+- [ ] Correcciones de bugs
+- [ ] Crear datos demo (1 proyecto completamente llenadoconbdatos)
+- [ ] Grabar video de 5-8 min (demo final)
+- [ ] Documentación final
+- [ ] Tag final: `v1.0-production-ready`
+
+---
+
+## 📊 Resumen: Tareas totales por rol
+
+### Arquitecto + Líder Técnico (3pleJ)
+- Sprint 1: Diseño Auth + permisos + ProjectUser + AuditLog + implementación User/permisos
+- Sprint 2: Diseño Scope + Asset + validaciones
+- Sprint 3: Diseño Risk (CRÍTICO) + fórmula + cálculos
+- Sprint 4: Diseño SoA + fixture ISO 27001
+- Sprint 5: Diseño Evidence + auditoría completa
+- Sprint 6: Definir métricas
+- **Total:** Diseño arquitectónico + implementación de core + code review todo
+
+### Backend Implementador (Osky)
+- Sprint 1: Implementar JWT + ProjectUser + AuditLog signals
+- Sprint 2: Scope + Asset
+- Sprint 3: Risk + scoring automático
+- Sprint 4: Fixtures + SoAItem automático
+- Sprint 5: Evidence + upload
+- Sprint 6: Métricas + Report
+- **Total:** CRUD endpoints + signals + validaciones
+
+### Frontend Developer (Tinky)
+- Sprint 1: Login + layout + rutas protegidas
+- Sprint 2: Scope UI + Asset UI
+- Sprint 3: Riesgos UI + scoring visual
+- Sprint 4: SoA UI + checkboxes
+- Sprint 5: Evidencias UI + upload
+- Sprint 6: Dashboards
+- **Total:** Todas las páginas del sistema
+
+---
+
+## ✅ Verde/Amarillo/Rojo por sprint
+
+### Sprint 1
+
+**🟢 Verde:** User migrado, JWT funciona, ProjectUser creado, AuditLog registra  
+**🟡 Amarillo:** JWT parcial o permisos incompletos  
+**🔴 Rojo:** User no es AbstractUser, JWT no funciona, 0 PRs  
+
+---
+
+### Sprint 2
+
+**🟢 Verde:** Scope + Asset modelos creados, endpoints funcionan, UI muestra datos  
+**🟡 Amarillo:** Modelos creados pero con bugs, endpoints parciales  
+**🔴 Rojo:** Scope o Asset no existen, UI no conecta  
+
+---
+
+### Sprint 3
+
+**🟢 Verde:** Risk modelo completo, scoring automático funciona, UI muestra scores inherente y residual  
+**🟡 Amarillo:** Modelo Risk existe pero scoring con bugs  
+**🔴 Rojo:** Risk no existe, scoring no funciona, 0 commits  
+
+---
+
+### Sprint 4-6
+
+Similar: modelos implementados ✅, endpoints funcionales ✅, UI visible ✅
+
+---
+
+**¿Dudas sobre tareas?** Pregúntale a los que correspondan, no hagas todo tú 😎

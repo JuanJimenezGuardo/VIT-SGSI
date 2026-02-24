@@ -7,6 +7,27 @@
 
 ---
 
+## ⚠️ PRINCIPIO FUNDAMENTAL: LAS DECISIONES DE HOY CONDICIONAN RENDER
+
+**ESTO ES CRÍTICO DESDE EL LUNES 24 FEB:**
+
+Cada decisión técnica que toman Osky y Tinky DEBE tener en mente que en Mayo esto corre en **Render (backend) + Vercel (frontend) + PostgreSQL 15 (managed)**. 
+
+**NO es "hacemos en desarrollo y después adaptamos para producción".**
+
+Es "**hacemos EN DESARROLLO de forma que ya funcione en Render sin cambios posteriores**".
+
+Esto significa:
+- PostgreSQL local versión 15, NUNCA SQLite
+- JWT configurado con Secure + HttpOnly + SameSite desde Sprint 1, no Sprint 6
+- Settings con `development.py` y `production.py` desde DÍA 1
+- Variables en .env siempre, NUNCA hardcodeadas
+- Validaciones y migraciones reversibles (porque la BD en Render es real)
+
+**Arquitecto valida esto:** Cada PR debe mostrar consideración para Render. Si hay "TODO: hacer seguro en producción", mereca es rechazada.
+
+---
+
 ## 📋 Estructura del equipo
 
 Tenemos 3 roles claramente definidos para evitar overlaps y asegurar que cada parte crítica del proyecto tenga propiedad y calidad.

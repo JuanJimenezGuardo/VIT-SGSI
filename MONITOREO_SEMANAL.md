@@ -4,6 +4,36 @@ El sistema de control del Arquitecto para seguimiento de avance **sin ser agresi
 
 ---
 
+## ⚠️ VALIDACIÓN DE PRODUCTION-READINESS (CADA VIERNES)
+
+El Arquitecto debe hacer estas preguntas adicionales cada viernes para asegurar que el código YA no solo funciona localmente, sino que está LISTO para Render:
+
+**Preguntas críticas:**
+
+1. ❓ "¿El código que escribiste dependería de SQLite o de PostgreSQL específicamente?"
+   - Si responden "SQLite estaría bien": **BLOQUEADOR**
+   - Si responden "PostgreSQL": ✅ Correctos
+
+2. ❓ "¿Hay credentials, SECRET_KEY, o DB passwords hardcodeados en el código?"
+   - Si responden "sí, están en settings.py": **BLOQUEADOR**
+   - Si responden "todo en .env": ✅ Correctos
+
+3. ❓ "¿En los endpoints con permiso [AllowAny], cuál es la justificación?"
+   - Si responden "solo /api/token/ tiene AllowAny": ✅ Correctos
+   - Si hay otros con AllowAny: **BLOQUEADOR**
+
+4. ❓ "¿Probaste el código con PostgreSQL local o solamente con SQLite?"
+   - Si responden "solo SQLite": **BLOQUEADOR**
+   - Si responden "PostgreSQL 15": ✅ Correctos
+
+5. ❓ "¿Los settings tienen development.py y production.py separados?"
+   - Si responden "no, todo en un settings.py": **AVISAR** (refactorizar en siguiente sprint)
+   - Si responden "sí, tenemos ambos": ✅ Correctos
+
+**Si alguna respuesta es BLOQUEADOR:** Solicitar refactor antes de merge.
+
+---
+
 ## 📅 Monitoreo Diario (sin necesidad de reunión)
 
 ### Lunes (planificación)

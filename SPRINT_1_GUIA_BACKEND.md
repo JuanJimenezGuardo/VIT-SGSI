@@ -25,16 +25,33 @@
 6. **Debug Mode:** `DEBUG=True` solo en desarrollo, automatizar a `False` en CI/CD
 7. **Logging:** Usar estructurado (no prints), facilita análisis en producción
 
-### Antes de empezar:
+### Antes de empezar (PARA RENDER - CRÍTICO):
 
+**1. PostgreSQL 15 local IGUAL a Render**
 ```bash
-# Crear estructura de settings
+# NUNCA SQLite en desarrollo si vas a Render en producción
+# PostgreSQL debe estar corriendo en localhost:5432
+# Crear BD: createdb vit_dev
+```
+
+**2. Estructura de settings (AHORA - no después)**
+```bash
 backend/config/
 ├── settings/
 │   ├── __init__.py
-│   ├── base.py          # Configuración común
-│   ├── development.py   # Debug=True, DB local
-│   └── production.py    # Debug=False, variables de entorno
+│   ├── base.py          # AUTH_USER_MODEL, CORS, apps comunes
+│   ├── development.py   # DEBUG=True, DB local PostgreSQL
+│   └── production.py    # DEBUG=False, variables .env, ALLOWED_HOSTS Render
+```
+
+**3. manage.py debe cargar development.py**
+```python
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.development')
+```
+
+**4. wsgi.py usará production.py en Render**
+```python
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.production')
 ```
 
 ---
@@ -183,86 +200,170 @@ AuditLog
 
 ## 🔹 Mini-Sprint 1.1 (19-21 feb) — Migrar User + SimpleJWT
 
-### **Día 1 (19 feb) — Preparación y migración User**
+### **Día 1 (19 feb) — PostgreSQL, Settings, y Migración User (CONFIGURAR PARA RENDER)**
 
-**Tareas para Dev 1:**
-1. Revisar si hay datos importantes en la base (Users, Projects, etc.)
-2. Si NO hay datos importantes → borrar `db.sqlite3` y carpetas `migrations/` de todas las apps
-3. Modificar `apps/users/models.py`:
-   - Importar `AbstractUser`
-   - Cambiar `class User(models.Model):` por `class User(AbstractUser):`
-   - Eliminar campos redundantes (username, email, password, first_name, last_name, is_active) porque AbstractUser ya los tiene
-   - Mantener campos custom: `role`, `phone`, timestamps
-4. Agregar en `config/settings.py`:
-   ```python
-   AUTH_USER_MODEL = 'users.User'
+**Tareas para Dev 1 - PRIMERO: PostgreSQL 15 local**
+1. **Instalar PostgreSQL 15** (versión exacta que usa Render)
+   ```bash
+   # Windows: https://www.postgresql.org/download/windows/
+   # Crear BD: createdb vit_dev
+   # Actualizar .env: DB_ENGINE=postgresql, DB_NAME=vit_dev, DB_USER=postgres
    ```
 
-**Checkpoint del día:**
-- Pregunta al dev: "¿Ya no hay errores al hacer `python manage.py makemigrations`?"
-- Si dice "sí" → bien, pasar al día 2
-- Si dice "no" → revisar que eliminó campos duplicados y que AUTH_USER_MODEL está bien escrito
+**SEGUNDO: Crear estructura settings para desarrollo Y producción**
+1. Ejecutar:
+   ```bash
+   mkdir backend/config/settings
+   touch backend/config/settings/__init__.py
+   ```
+2. Crear `backend/config/settings/base.py` (common):
+   ```python
+   AUTH_USER_MODEL = 'users.User'  # ← CLAVE para Render
+   INSTALLED_APPS = [...]
+   MIDDLEWARE = [...]
+   # CORS, variables globales, etc.
+   ```
+3. Crear `backend/config/settings/development.py`:
+   ```python
+   from .base import *
+   DEBUG = True
+   ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+   DATABASES = {'default': {'ENGINE': 'django.db.backends.postgresql', ...}}
+   ```
+4. Crear `backend/config/settings/production.py`:
+   ```python
+   from .base import *
+   DEBUG = False  # ← CRÍTICO: DEBUG nunca True en Render
+   ALLOWED_HOSTS = ['vit-app.render.com']  # varará
+   DATABASES = {'default': {'ENGINE': 'django.db.backends.postgresql', 'HOST': os.environ.get('DB_HOST'), ...}}
+   ```
+5. Actualizar `manage.py` para usar development:
+   ```python
+   os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.development')
+   ```
+
+**TERCERO: Migrar modelo User**
+1. Modificar `apps/users/models.py`:
+   ```python
+   from django.contrib.auth.models import AbstractUser
+   
+   class User(AbstractUser):  # ← NO models.Model
+       role = models.CharField(...)  # Solo campos custom
+       phone = models.CharField(...)
+   ```
+2. Eliminar campos que AbstractUser ya tiene: username, email, password, first_name, last_name, is_active
+
+⚠️ **MUY IMPORTANTE:** Este cambio DEBE hacerse antes de primera migración. Si lo haces después, hay que resetear BD.
 
 ---
 
-### **Día 2 (20 feb) — Aplicar migraciones + instalar SimpleJWT**
+### **Día 2 (20 feb) — Migraciones + SimpleJWT CON SEGURIDAD PARA RENDER**
 
 **Tareas para Dev 1:**
-1. Ejecutar:
+1. Ejecutar (PostgreSQL debe estar corriendo):
    ```bash
    python manage.py makemigrations
    python manage.py migrate
    ```
-2. Crear superusuario para probar:
+2. Crear superusuario:
    ```bash
    python manage.py createsuperuser
+   # username: admin, password: admin (solo para desarrollo)
    ```
-3. Instalar SimpleJWT:
+3. Instalar SimpleJWT y actualizar requirements:
    ```bash
    pip install djangorestframework-simplejwt
-   ```
-4. Actualizar `requirements.txt`:
-   ```bash
    pip freeze > requirements.txt
+   # ← COMMITEAR AHORA para que Render sepa instalar SimpleJWT
    ```
 
-**Tareas para Dev 2:**
-1. Configurar SimpleJWT en `config/settings.py`:
-   - Agregar `'rest_framework_simplejwt'` a `INSTALLED_APPS`
-   - Configurar `REST_FRAMEWORK` para usar JWT como auth default
-   - Configurar tiempos de expiración de tokens
-2. Agregar rutas en `config/urls.py`:
-   - `/api/token/` (obtener token)
-   - `/api/token/refresh/` (renovar token)
+**Tareas para Dev 2 - CONFIGURAR JWT CON SEGURIDAD PARA RENDER:**
+1. En `config/settings/base.py`, agregar:
+   ```python
+   from rest_framework_simplejwt.settings import SIMPLE_JWT
+   from datetime import timedelta
+   
+   INSTALLED_APPS = [
+       ...
+       'rest_framework_simplejwt',
+       ...
+   ]
+   
+   SIMPLE_JWT = {
+       'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+       'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+       'AUTH_HEADER_TYPES': ('Bearer',),
+       'AUTH_COOKIE': 'access_token',
+       'AUTH_COOKIE_SECURE': True,  # HTTPS en Render
+       'AUTH_COOKIE_HTTP_ONLY': True,  # No accesible desde JS
+       'AUTH_COOKIE_SAMESITE': 'Strict',  # CSRF protection
+   }
+   ```
 
-**Checkpoint del día:**
-- Pregunta: "¿Puedo hacer login desde Postman/Thunder Client?"
-- Test manual:
-  1. POST a `http://localhost:8000/api/token/`
-  2. Body: `{"username": "admin", "password": "tu_password"}`
-  3. ¿Devuelve `access` y `refresh` tokens?
-- Si sí → ✅ JWT funciona
-- Si no → revisar configuración en settings y urls
+2. En `config/settings/development.py`, CAMBIAR para localhost (HTTP):
+   ```python
+   from .base import *
+   DEBUG = True
+   ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+   SIMPLE_JWT['AUTH_COOKIE_SECURE'] = False  # HTTP local
+   ```
+
+3. En `config/urls.py`, agregar endpoints:
+   ```python
+   from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+   
+   urlpatterns = [
+       ...
+       path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+       path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+       ...
+   ]
+   ```
+
+**Checkpoint del día (VALIDACIÓN PARA RENDER):**
+- ✅ Test: POST a `http://localhost:8000/api/token/`
+  ```json
+  {"username": "admin", "password": "admin"}
+  ```
+- ✅ ¿Devuelve access + refresh tokens? → JWT funciona ✅
+- 🚨 Si falla: revisar SIMPLE_JWT en settings/base.py y urls.py
 
 ---
 
-### **Día 3 (21 feb) — Proteger endpoints con JWT**
+### **Día 3 (21 feb) — Proteger endpoints con JWT (NUNCA AllowAny EN RENDER)**
 
 **Tareas para Dev 1:**
-1. Cambiar `permission_classes` de todos los ViewSets:
-   - De `[AllowAny]` a `[IsAuthenticated]`
-2. Probar que ahora SÍ pide token:
-   - GET `/api/users/` sin token → debe dar 401
-   - GET `/api/users/` CON token en header → debe funcionar
+1. BÚSQUEDA: `grep -r "AllowAny" backend/` en terminal
+   - Encontrar todos los endpoints con `permission_classes = [AllowAny]`
+2. Cambiar TODOS (excepto `/api/token/` que es login) a `[IsAuthenticated]`:
+   ```python
+   from rest_framework.permissions import IsAuthenticated
+   
+   class UserViewSet(ModelViewSet):
+       permission_classes = [IsAuthenticated]  # ❌ NUNCA AllowAny en Render
+   ```
+3. Probar sin token:
+   ```bash
+   curl http://localhost:8000/api/users/  # Debe dar 401
+   ```
 
 **Tareas para Dev 2:**
-1. Actualizar serializers si es necesario (ocultar password en respuestas, etc.)
-2. Crear endpoint de registro básico (opcional, pero útil para demo)
+1. Actualizar serializers para NO devolver password:
+   ```python
+   class UserSerializer(ModelSerializer):
+       class Meta:
+           model = User
+           fields = ('id', 'username', 'email', 'role', 'phone')
+           extra_kwargs = {'password': {'write_only': True}}
+   ```
+2. (OPCIONAL) Crear endpoint POST `/api/register/` para que Clients se selfregistren
 
-**Checkpoint del día:**
-- Pregunta: "¿Todos los endpoints están protegidos?"
-- Test: intentar acceder sin token → debe fallar
-- ✅ Demo interna: login → obtener token → usar token en request → ver datos
+**Checkpoint del día (CRÍTICO PARA RENDER):**
+- ✅ BÚSQUEDA: `grep -r "AllowAny" backend/` → debe estar vacío (excepto admin)
+- ✅ TEST sin token: GET `/api/users/` → debe dar 401 Unauthorized (NO 200)
+- ✅ TEST con token: GET `/api/users/` con Authorization header → debe dar 200
+- 🚨 Si ves 200 sin token: **BLOQUEADOR** → revisar permisos inmediatamente
+- ✅ Demo: login → token → request protegido → data
 
 ---
 

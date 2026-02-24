@@ -1,5 +1,18 @@
 # ✅ Checklist Semanal Sprint 1 (para control sin programar)
 
+## ⚠️ VALIDACIÓN DE ARQUITECTURA PARA RENDER
+
+Cada checkpoint debe validar que el código NO solo "funciona en desarrollo" sino que "ya está listo para Render".
+
+**Preguntas de validación OBLIGATORIAS cada viernes:**
+
+1. ❓ "¿El código dependería de SQLite?" → Si dice sí, bloqueador (debe ser PostgreSQL)
+2. ❓ "¿Hay passwords o SECRET_KEY hardcodeados?" → Si dice sí, bloqueador (debe estar en .env)
+3. ❓ "¿Hay AllowAny en endpoints que no son /api/token/?" → Si dice sí, bloqueador
+4. ❓ "¿Los settings discriminan entre development y production?" → Si dice no, avistar
+
+---
+
 ## 📅 Semana 1 (19-23 feb) — Auth + JWT + Permisos básicos
 
 ### Viernes 21 feb — Mini Demo

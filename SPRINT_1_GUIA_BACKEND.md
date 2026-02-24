@@ -6,6 +6,39 @@
 
 ---
 
+## ⚠️ ARQUITECTURA TRANSVERSAL: Consideraciones de Producción
+
+**Importante:** Este sprint construye la base de seguridad. Todas las decisiones aquí impactarán el deployment final en Render.
+
+**Leer primero:** [ARQUITECTURA_DESPLIEGUE_PRODUCCION.md](ARQUITECTURA_DESPLIEGUE_PRODUCCION.md) §"Configuración Django para Producción"
+
+### Decisiones que hacemos HOY que impactan PRODUCCIÓN:
+
+1. **Settings por Entorno:** No solo .env, crear `settings/development.py` y `settings/production.py` ahora
+2. **JWT Cookies:**  
+   - `Secure=True` (solo HTTPS en prod)
+   - `HttpOnly=True` (no accesible desde JavaScript)
+   - `SameSite=Strict` (protección CSRF)
+3. **CORS:** Definir orígenes específicos (backend en Render, frontend en Vercel)
+4. **Variables Sensibles:** NUNCA hardcodear `SECRET_KEY`, `DATABASE_PASSWORD`, etc.
+5. **PostgreSQL:** Usar PostgreSQL local (mismo que producción), no SQLite
+6. **Debug Mode:** `DEBUG=True` solo en desarrollo, automatizar a `False` en CI/CD
+7. **Logging:** Usar estructurado (no prints), facilita análisis en producción
+
+### Antes de empezar:
+
+```bash
+# Crear estructura de settings
+backend/config/
+├── settings/
+│   ├── __init__.py
+│   ├── base.py          # Configuración común
+│   ├── development.py   # Debug=True, DB local
+│   └── production.py    # Debug=False, variables de entorno
+```
+
+---
+
 ## 📋 Resumen del Sprint
 
 Al final del sprint tendrás:

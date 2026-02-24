@@ -2,6 +2,8 @@
 
 Desglose día a día y semana a semana de qué construye cada rol. Esto se actualiza cada lunes en la reunión.
 
+**IMPORTANTE:** Todos los sprints están condicionados por la arquitectura de producción definida en `ARQUITECTURA_DESPLIEGUE_PRODUCCION.md`. Cada decisión técnica debe considerar su impacto en el deployment final.
+
 ---
 
 ## ✅ SPRINT 1 (19 feb → 2 mar) — Seguridad Base + Auth
@@ -115,6 +117,23 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real"
 
 ---
 
+### 🏭 **Impacto en Producción (Sprint 1)**
+
+Este sprint sienta las bases de seguridad para producción:
+
+- **JWT Cookies:** Configurarlas como `Secure`, `HttpOnly`, `SameSite=Strict` (no solo en prod, hacerlo ahora)
+- **CORS:** Definir orígenes específicos desde el inicio (Render backend vs Vercel frontend)
+- **Variables de Entorno:** Todas las credenciales NUNCA en código (usar .env desde Sprint 1)
+- **Settings por Entorno:** Crear `settings/development.py` y `settings/production.py` ahora (no al final)
+- **Database:** PostgreSQL local igual a producción (misma versión, mismas validaciones)
+- **Tests en CI:** Configurar GitHub Actions para que corra tests antes de merge
+- **SECRET_KEY:** Generar y proteger, nunca hardcodear
+- **Debug en Logs:** Usar logging strukturado (no prints), facilita análisis en producción
+
+**Acción:** Leer ARQUITECTURA_DESPLIEGUE_PRODUCCION.md §"Configuración Django para Producción"
+
+---
+
 ---
 
 ## ✅ SPRINT 2 (3-16 mar) — Scope + Assets (SGSI Base)
@@ -171,6 +190,17 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real"
 
 **Semana 3 (16 mar):**
 - [ ] Demo
+
+---
+
+### 🏭 **Impacto en Producción (Sprint 2)**
+
+- **Migraciones Reversibles:** Todos los cambios de modelo deben ser migrables forward y backward
+- **Validaciones en BD:** No confiar solo en Django ORM, agregar constraints en PostgreSQL
+- **Relaciones Normalizadas:** Diseño de BD limpio = no problemas en prod
+- **Indexación:** Pensar en queries lentas ahora, indexar desde el inicio (Scope.project, Asset.scope)
+- **Testing de Migraciones:** Cada migration debe testearse localmente antes de production
+- **N+1 Queries:** Usar `select_related()` y `prefetch_related()` desde el inicio para DRF
 
 ---
 
@@ -239,6 +269,20 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real"
 
 ---
 
+### 🏭 **Impacto en Producción (Sprint 3)**
+
+Los riesgos son cálculos críticos en SGSI:
+
+- **Cálculos Determinísticos:** Score = Prob × Impact, NUNCA cambiar fórmula después de producción
+- **Signals Thread-Safe:** Si usas signals para recalcular scores, deben ser atomic y no race conditions
+- **Audit Trail:** Todos cambios de score deben estar en AuditLog (quién, cuándo, por qué)
+- **Reportabilidad:** Datos de riesgos son base de reportes para auditoría, ningún harddelete
+- **Performance:** Con 1000+ riesgos, queries deben ser optimizadas (indexes, caching)
+
+**Acción:** Leer ARQUITECTURA_DESPLIEGUE_PRODUCCION.md § "Logging Estructurado"
+
+---
+
 ---
 
 ## ✅ SPRINT 4 (31 mar - 13 abr) — SoA + ISO Controls
@@ -290,6 +334,25 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real"
 
 ---
 
+### 🏭 **Impacto en Producción (Sprint 3)**
+
+- **Cálculo de Riesgos en Prod:** La fórmula (prob × impacto) debe ser idéntica en dev y prod
+- **Datos Masivos:** 93 controles × múltiples proyectos = cuidado con queries lentas
+- **Caching:** Considerar cachear los 93 controles (no cambian frecuentemente)
+- **Auditlog de Cambios:** Cada Risk o SoAItem modificado debe auditar (quién, cuándo, qué cambió)
+- **Archivos Adjuntos:** Si Risk puede tener evidencias, planificar almacenamiento persistente
+
+---
+
+### 🏭 **Impacto en Producción (Sprint 4)**
+
+- **Datos de Referencia:** Los 93 ISOControls son datos de solo lectura, versionar en BD
+- **Generación SoA:** Si es automática, testear que genera correctamente con 1000 controles
+- **Truncamiento de Texto:** Justificaciones largas deben validarse (no es charla, es auditoría)
+- **Indexación SoA:** Búsquedas por control_code deben ser rápidas (index en lookup)
+
+---
+
 ---
 
 ## ✅ SPRINT 5 (14-27 abr) — Evidencias + Auditoria Completa
@@ -335,6 +398,27 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real"
 - [ ] Mostrar estado (badge de color)
 - [ ] Tabla de logs (quién cambió qué y cuándo)
 - [ ] PR
+
+---
+
+### 🏭 **Impacto en Producción (Sprint 5)**
+
+**CRÍTICO:** Este sprint define cómo se manejan archivos en producción.
+
+- **No usar Filesystem Local:** Render tiene filesystem efímero (desaparece en redeploy)
+- **Almacenamiento Persistente:** Usar S3 compatible (Supabase Storage o AWS S3)
+- **Validación de Archivos:** 
+  - Máximo 50MB por archivo
+  - Solo tipos permitidos: PDF, DOCX, XLSX, JPG, PNG
+  - Validar MIME type en servidor (no confiar en extensión)
+- **Virus Scan:** Considerar VirusTotal API para archivos críticos
+- **Acceso Controlado:** Las evidencias son confidenciales, acceso solo a usuarios autorizados
+- **Download mediante Token:** No exponer URLs de S3 directamente (usar signed URLs con expiracion)
+- **AuditLog Completo:** Quién subió, quién descargó, cuándo, desde dónde
+- **Encriptación:** S3 con encriptación en reposo
+- **Backups:** Asegurar que S3 tiene backups automáticos
+
+**Config Django:** Ver ARQUITECTURA_DESPLIEGUE_PRODUCCION.md §"Almacenamiento (Evidencias)"
 
 ---
 
@@ -393,6 +477,18 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real"
 
 ---
 
+### 🏭 **Impacto en Producción (Sprint 6)**
+
+- **Reportes en Prod:** Los reportes acceden a datos en vivo (no caché), queries optimizadas
+- **Cálculo de Métricas:** NO hacer cálculos complejos en la request (lazy agregation)
+- **Exportación PDF:** Si se exportan reportes a PDF, usar librería que no quebre (reportlab, weasyprint)
+- **Carga de Datos:** En prod, 1000 proyectos × 93 controles = 93k registros, performance crítica
+- **Paginación:** Todos los endpoints deben paginar (no devolver 10k registros de una)
+- **Rate Limiting:** Endpoint de reportes puede ser costoso, limitar a 5 req/hora/usuario
+- **Scheduling (Futuro):** Si los reportes son automáticos, usar Celery + Redis (no ahora, pero planificar)
+
+---
+
 ---
 
 ## 📅 BUFFER (12-15 may) — QA + Demo Final
@@ -419,7 +515,7 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real"
 - Sprint 6: Definir métricas
 - **Total:** Diseño arquitectónico + implementación de core + code review todo
 
-### Backend Implementador (Osky)
+### Backend Implementador
 - Sprint 1: Implementar JWT + ProjectUser + AuditLog signals
 - Sprint 2: Scope + Asset
 - Sprint 3: Risk + scoring automático
@@ -428,7 +524,7 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real"
 - Sprint 6: Métricas + Report
 - **Total:** CRUD endpoints + signals + validaciones
 
-### Frontend Developer (Tinky)
+### Frontend Developer
 - Sprint 1: Login + layout + rutas protegidas
 - Sprint 2: Scope UI + Asset UI
 - Sprint 3: Riesgos UI + scoring visual

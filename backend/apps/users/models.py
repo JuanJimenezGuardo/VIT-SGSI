@@ -1,29 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class User(models.Model):
+class User(AbstractUser):
+    """
+    Modelo de Usuario personalizado que extiende AbstractUser.
+    ✅ HEREDA: username, email, password, first_name, last_name, is_active, etc.
+    ✅ AGREGA: role, phone con lógica específica para VIT
+    """
     ROLE_CHOICES = (
         ('ADMIN', 'Administrador VIT'),
         ('CONSULTANT', 'Consultor'),
         ('CLIENT', 'Cliente'),
     )
     
-    # Campos básicos
-    username = models.CharField(max_length=150, unique=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=255)
-    first_name = models.CharField(max_length=150, blank=True)
-    last_name = models.CharField(max_length=150, blank=True)
-    
-    # Campos personalizados
+    # Campos personalizados para VIT
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='CLIENT')
-    phone = models.CharField(max_length=20, blank=True)
-    is_active = models.BooleanField(default=True)
-    #company = models.ForeignKey('companies.Company', on_delete=models.SET_NULL, null=True, blank=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    
+    # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
     
     class Meta:
         db_table = 'users_user'
@@ -31,7 +27,7 @@ class User(models.Model):
         verbose_name_plural = 'Users'
     
     def __str__(self):
-        return f'{self.first_name} {self.last_name} ({self.get_role_display()})'
+        return f'{self.get_full_name()} ({self.get_role_display()})'
     
     def get_full_name(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.first_name} {self.last_name}'.strip() or self.username

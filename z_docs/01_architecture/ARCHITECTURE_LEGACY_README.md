@@ -24,8 +24,8 @@ Construir una plataforma completa donde:
 - ✅ Permisos por rol/proyecto (RBAC + ProjectUser con 6 permission classes)
 - ✅ AuditLog con Django signals (registro automático de QUIEN/QUE/CUANDO)
 - ✅ Companies, Projects, Phases, Tasks (CRUD completo)
-- ✅ Demo data population (populate_demo_data.py)
-- ✅ Test suite automatizado (test_demo_sprint1.py: 5 escenarios validados)
+- ✅ Demo data population (backend/scripts/populate_demo_data.py)
+- ✅ Test suite automatizado (backend/tests/test_demo_sprint1.py: 5 escenarios validados)
 - ✅ Git: Commit tagged v0.1-sprint1, historial limpio
 
 **Próximos pasos inmediatos (Sprint 2-6):**

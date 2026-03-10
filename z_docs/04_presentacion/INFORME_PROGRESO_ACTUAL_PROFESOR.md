@@ -128,11 +128,11 @@ Permiso:      POST /check-permission/ (per-feature)
 **Estado:** Testeado con curl/Postman ✅
 
 **6. Testing Funcional (Manual)**
-- `test_permissions.py` - 8 casos de permiso
-- `test_auditlog.py` - Auditoría registra eventos
-- `test_project_user.py` - Multitenancy funciona
-- `test_signals.py` - Signals disparan correctamente
-- `test_backend.py` - Integridad general
+- `backend/tests/test_permissions.py` - 8 casos de permiso
+- `backend/tests/test_auditlog.py` - Auditoría registra eventos
+- `backend/tests/test_project_user.py` - Multitenancy funciona
+- `backend/tests/test_signals.py` - Signals disparan correctamente
+- `backend/tests/test_backend.py` - Integridad general
 
 **Estado:** Tests ejecutables, cobertura ~40% ⚠️
 

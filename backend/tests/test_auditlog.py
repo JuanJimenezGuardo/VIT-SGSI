@@ -3,7 +3,13 @@ Script para probar el modelo AuditLog manualmente (Checkpoint Dia 7).
 Crea un registro de auditoria y verifica que se puede leer.
 """
 import os
+import sys
+from pathlib import Path
 import django
+
+BACKEND_DIR = Path(__file__).resolve().parents[1]
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.development')
 django.setup()

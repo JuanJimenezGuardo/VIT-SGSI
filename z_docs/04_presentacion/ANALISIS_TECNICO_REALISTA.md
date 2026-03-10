@@ -305,15 +305,15 @@ else:
 
 ```
 backend/
-├── test_backend.py              → Check DB, contar tablas (15% informativo)
-├── test_endpoints.py            → Verificar status codes (30% básico)
-├── test_demo_sprint1.py         → Flujo completo LOGIN (60% bueno) ✅
-├── test_permissions.py          → Validar permisos por rol (70% bueno) ✅
-├── test_project_user.py         → ProjectUser CRUD (40% básico)
-├── test_auditlog.py             → AuditLog signals (80% bueno) ✅
-├── test_auditlog_endpoint.py    → AuditLog GET/filter (70% bueno) ✅
-├── test_signals.py              → Django signals (50% básico)
-└── test_demo_sprint1.py         → Demo script HTTP (está deprecado, usa requests)
+├── tests/test_backend.py              → Check DB, contar tablas (15% informativo)
+├── tests/test_endpoints.py            → Verificar status codes (30% básico)
+├── tests/test_demo_sprint1.py         → Flujo completo LOGIN (60% bueno) ✅
+├── tests/test_permissions.py          → Validar permisos por rol (70% bueno) ✅
+├── tests/test_project_user.py         → ProjectUser CRUD (40% básico)
+├── tests/test_auditlog.py             → AuditLog signals (80% bueno) ✅
+├── tests/test_auditlog_endpoint.py    → AuditLog GET/filter (70% bueno) ✅
+├── tests/test_signals.py              → Django signals (50% básico)
+└── scripts/populate_demo_data.py      → Demo data de soporte
 ```
 
 ### 4.2 Calidad de Tests
@@ -334,7 +334,7 @@ backend/
 
 **Ejecución:**
 ```bash
-python test_demo_sprint1.py              # Scripts HTTP si servidor corre
+python tests/test_demo_sprint1.py        # Scripts HTTP si servidor corre
 python manage.py test                    # NO HAY TESTS formales en Django
 ```
 
@@ -641,7 +641,7 @@ Esperado: React 18, Vite, axios, etc.
 3. **Documentación exhaustiva**: Existe material de referencia excelente
 4. **Code organization**: Apps separadas, serializers/viewsets limpios
 5. **Permiso granular**: Filtrado por rol en get_queryset()
-6. **Demo data**: Existe populate_demo_data.py con datos realistas
+6. **Demo data**: Existe backend/scripts/populate_demo_data.py con datos realistas
 
 ### 13.2 Qué Está Mal ❌
 
@@ -742,13 +742,13 @@ pip install -r requirements.txt
 python manage.py migrate
 
 # Load demo data
-python populate_demo_data.py
+python scripts/populate_demo_data.py
 
 # Run server
 python manage.py runserver
 
 # Test (HTTP)
-python test_demo_sprint1.py  # Si servidor corre en :8000
+python tests/test_demo_sprint1.py  # Si servidor corre en :8000
 
 # Run Django tests (si existen en formato formal)
 python manage.py test  # → Probablemente 0 tests

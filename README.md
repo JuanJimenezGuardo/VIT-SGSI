@@ -69,7 +69,7 @@ Permitir a empresas implementar ISO 27001 de forma estructurada, con gestión de
 - ✅ ProjectUser (user-project-role relationship con CRUD completo)
 - ✅ AuditLog (modelo, serializer, viewset - registra QUIEN/QUE/CUANDO automáticamente)
 - ✅ Django signals (10 signal receivers para logging automático de cambios)
-- ✅ Demo data + automated tests (test_demo_sprint1.py valida 5 escenarios completos)
+- ✅ Demo data + automated tests (backend/tests/test_demo_sprint1.py valida 5 escenarios completos)
 
 **Estado:** Backend 100% funcional. 7 endpoints protegidos, 3 roles trabajando, AuditLog registrando cambios automáticamente.
 

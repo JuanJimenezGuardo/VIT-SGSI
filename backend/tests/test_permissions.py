@@ -4,7 +4,13 @@ Prueba todos los endpoints con diferentes roles: ADMIN, CONSULTANT, CLIENT.
 Verifica que los permisos funcionan correctamente sin errores 500.
 """
 import os
+import sys
+from pathlib import Path
 import django
+
+BACKEND_DIR = Path(__file__).resolve().parents[1]
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.development')
 django.setup()

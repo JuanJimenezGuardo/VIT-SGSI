@@ -90,7 +90,7 @@ PostgreSQL Database
 python manage.py check
 # System check identified no issues (0 silenced).
 
-python test_demo_sprint1.py
+python tests/test_demo_sprint1.py
 # 15/15 tests passing
 ```
 

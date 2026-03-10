@@ -40,7 +40,7 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real" ✅ L
 - ✅ AuditLog: registra CREATE/UPDATE/DELETE automáticamente
 - ✅ 0 errores 500 en endpoints
 - ✅ Demo data: 3 usuarios, 2 empresas, 2 proyectos
-- ✅ Test suite: test_demo_sprint1.py (5 scenarios passing)
+- ✅ Test suite: backend/tests/test_demo_sprint1.py (5 scenarios passing)
 
 ---
 

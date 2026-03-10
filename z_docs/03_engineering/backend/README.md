@@ -70,8 +70,8 @@
 - ✅ Serializers anidados para relaciones complejas
 - ✅ ViewSets automáticos con CRUD y filtrado por rol
 - ✅ 7 endpoints protegidos (usuarios, empresas, proyectos, fases, tareas, project-users, audit-logs)
-- ✅ Demo data population script (populate_demo_data.py)
-- ✅ Automated test suite (test_demo_sprint1.py: 5 escenarios, todos passing)
+- ✅ Demo data population script (scripts/populate_demo_data.py)
+- ✅ Automated test suite (tests/test_demo_sprint1.py: 5 escenarios, todos passing)
 - ✅ Git: v0.1-sprint1 tagged, 12+ commits en Sprint 1
 
 ## Como usar

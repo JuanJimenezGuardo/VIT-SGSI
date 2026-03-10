@@ -38,8 +38,8 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real" ✅ L
 **Semana 3 (1-2 mar):**
 - [x] Validar arquitectura final
 - [x] Demo Postman: Login, Tokens, ProjectUser CRUD, AuditLog automatico
-- [x] Preparar demo data (populate_demo_data.py: 3 usuarios, 2 empresas, 2 proyectos)
-- [x] Crear test suite automatizado (test_demo_sprint1.py: 5 escenarios)
+- [x] Preparar demo data (backend/scripts/populate_demo_data.py: 3 usuarios, 2 empresas, 2 proyectos)
+- [x] Crear test suite automatizado (backend/tests/test_demo_sprint1.py: 5 escenarios)
 - [x] Git: v0.1-sprint1 tagged
 
 **Output completado:**
@@ -50,7 +50,7 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real" ✅ L
 - ✅ AuditLog: registra CREATE/UPDATE/DELETE automaticamente
 - ✅ 0 errores 500 en endpoints
 - ✅ Demo data: 3 usuarios, 2 empresas, 2 proyectos
-- ✅ Test suite: test_demo_sprint1.py (5 scenarios passing)
+- ✅ Test suite: backend/tests/test_demo_sprint1.py (5 scenarios passing)
 - ✅ 12+ commits con mensajes descriptivos
 - ✅ v0.1-sprint1 tagged en GitHub
 

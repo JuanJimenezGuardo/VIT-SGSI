@@ -120,12 +120,12 @@ NOT Implemented:
 
 ```
 Existen (pero NO formales):
-├── test_backend.py              → Check DB status
-├── test_endpoints.py            → HTTP status codes
-├── test_demo_sprint1.py         → Full flow (5 scenarios)
-├── test_permissions.py          → Role-based access
-├── test_auditlog.py             → Signals + changes
-└── populate_demo_data.py        → Demo data generator
+├── backend/tests/test_backend.py              → Check DB status
+├── backend/tests/test_endpoints.py            → HTTP status codes
+├── backend/tests/test_demo_sprint1.py         → Full flow (5 scenarios)
+├── backend/tests/test_permissions.py          → Role-based access
+├── backend/tests/test_auditlog.py             → Signals + changes
+└── backend/scripts/populate_demo_data.py      → Demo data generator
 
 NO EXISTEN:
 ├── pytest formal test suite

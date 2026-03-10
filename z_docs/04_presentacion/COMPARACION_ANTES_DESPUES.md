@@ -245,7 +245,7 @@ Score: 0/10
 Tests: 8+ automated cases
 Coverage: ~40%
 Method: Python test_*.py
-Files: test_permissions.py, test_auditlog.py, test_project_user.py
+Files: backend/tests/test_permissions.py, backend/tests/test_auditlog.py, backend/tests/test_project_user.py
 Score: 3/10
 🎯 SALTO: 0 → 3/10 (empezó!)
 ```

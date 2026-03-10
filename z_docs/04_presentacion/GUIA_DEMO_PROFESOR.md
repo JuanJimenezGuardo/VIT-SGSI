@@ -325,8 +325,8 @@ Si quieres ir más allá, puedes mostrar:
   - `z_docs/03_engineering/backend/API_ENDPOINTS.md` → 28 endpoints documentados
 
 3. **Tests:**
-   - `backend/test_permissions.py` → 8 casos
-   - `backend/test_auditlog.py` → Auditoría funciona
+  - `backend/tests/test_permissions.py` → 8 casos
+  - `backend/tests/test_auditlog.py` → Auditoría funciona
 
 ---
 

@@ -267,7 +267,7 @@ ProjectUser: user=4 (maria), project=1, role="CLIENT"
 - ✅ AuditLog + signals (Auto-logging de cambios, 10 signal receivers)
 - ✅ Serializers/viewsets completos (7 viewsets con CRUD, filtering por rol)
 - ✅ Demo data population (3 users, 2 companies, 2 projects, ProjectUser assignments)
-- ✅ Pruebas automatizadas (test_demo_sprint1.py: 5 escenarios validados)
+- ✅ Pruebas automatizadas (backend/tests/test_demo_sprint1.py: 5 escenarios validados)
 - ⏳ Frontend Login + PrivateRoute (Próximo: Sprint Frontend)
 
 ### **SPRINT 2 (3-16 mar): PROYECTOS + TAREAS**
@@ -316,8 +316,8 @@ He copiado toda la documentación a `C:\Proyecto_VIT\REFERENCIAS_ISO27001\`:
 - ✅ AuditLog model + signals (implementado, probado, funcional)
 - ✅ Migraciones (todas aplicadas, DB consistente)
 - ✅ ProjectUser serializers + viewsets (CRUD completo, filtrado por rol)
-- ✅ Test data (populate_demo_data.py crea datos de prueba realistas)
-- ✅ Demo automatizado (test_demo_sprint1.py valida todos los escenarios)
+- ✅ Test data (backend/scripts/populate_demo_data.py crea datos de prueba realistas)
+- ✅ Demo automatizado (backend/tests/test_demo_sprint1.py valida todos los escenarios)
 - ✅ Git: Commit v0.1-sprint1 taggeado, historial limpio
 
 **Validación**: Todos los 7 endpoints protegidos, 3 roles funcionando, AuditLog registrando cambios automáticamente.

@@ -18,7 +18,7 @@ python manage.py runserver       # Puerto 8000
 
 ### 2. Abrir Postman
 
-- Importar collection: `backend/API_ENDPOINTS.md`
+- Importar collection: `z_docs/03_engineering/backend/API_ENDPOINTS.md`
 - O crear requests manualmente (más simple)
 
 ### 3. Tener pgAdmin Abierto
@@ -322,7 +322,7 @@ Si quieres ir más allá, puedes mostrar:
 2. **Documentación:**
    - `z_docs/01_architecture/ARQUITECTURA_GENERAL.md` → Decisiones
    - `z_docs/02_sprints/PLAN_GENERAL_SPRINTS_1_A_6.md` → Timeline
-   - `backend/API_ENDPOINTS.md` → 28 endpoints documentados
+  - `z_docs/03_engineering/backend/API_ENDPOINTS.md` → 28 endpoints documentados
 
 3. **Tests:**
    - `backend/test_permissions.py` → 8 casos

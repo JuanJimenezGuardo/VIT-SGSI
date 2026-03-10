@@ -124,7 +124,7 @@ Tasks:        CRUD (nested en projects)
 AuditLog:     GET /auditlog/ (filtrable, auditado)
 Permiso:      POST /check-permission/ (per-feature)
 ```
-**Documentado en:** `backend/API_ENDPOINTS.md`  
+**Documentado en:** `z_docs/03_engineering/backend/API_ENDPOINTS.md`  
 **Estado:** Testeado con curl/Postman ✅
 
 **6. Testing Funcional (Manual)**

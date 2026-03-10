@@ -138,8 +138,8 @@
 ---
 
 **Docs disponibles:**
-- `INFORME_PROGRESO_ACTUAL_PROFESOR.md` (12 secciones, detallado)
-- `GUIA_DEMO_PROFESOR.md` (paso a paso para demo en vivo)
-- `COMPARACION_ANTES_DESPUÉS.md` (tablas visuales de progreso)
-- `RESUMEN_TLDR.md` (3 minutos de lectura)
+- `z_docs/04_presentacion/INFORME_PROGRESO_ACTUAL_PROFESOR.md` (12 secciones, detallado)
+- `z_docs/04_presentacion/GUIA_DEMO_PROFESOR.md` (paso a paso para demo en vivo)
+- `z_docs/04_presentacion/COMPARACION_ANTES_DESPUES.md` (tablas visuales de progreso)
+- `z_docs/04_presentacion/RESUMEN_TLDR.md` (3 minutos de lectura)
 

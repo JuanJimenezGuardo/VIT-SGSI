@@ -225,7 +225,7 @@ Puede clonar, probar, ver el historial completo."
 **Dile al profesor: "Preparé estos documentos para que profundice si quiere"**
 
 ```
-En la raíz del proyecto encontrará:
+En `z_docs/04_presentacion/` encontrará:
 
 1. INFORME_PROGRESO_ACTUAL_PROFESOR.md
    → Completo (12 secciones, todas las métricas)
@@ -236,7 +236,7 @@ En la raíz del proyecto encontrará:
 3. GUIA_DEMO_PROFESOR.md
    → Paso a paso para repetir demo
    
-4. COMPARACION_ANTES_DESPUÉS.md
+4. COMPARACION_ANTES_DESPUES.md
    → Tablas visuales de progreso
    
 5. z_docs/

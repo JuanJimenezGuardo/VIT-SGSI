@@ -1,6 +1,6 @@
 """
 Django development settings para VIT project.
-Configuración para desarrollo local con DEBUG=True y PostgreSQL local.
+Configuración para desarrollo local con DEBUG=True y SQLite local.
 """
 
 from .base import *
@@ -11,18 +11,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'testserver']
 
-# Database - PostgreSQL local para desarrollo
+# Database - SQLite local para desarrollo rápido sin configurar servidores
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'vit_dev'),
-        'USER': os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'Vit2026!'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
-        'OPTIONS': {
-            'options': '-c lc_messages=C -c client_encoding=UTF8',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

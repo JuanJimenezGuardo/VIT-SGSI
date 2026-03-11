@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+:root {
+  /* Paleta Galáctica */
+  --bg-body: #020617;        /* Azul casi negro */
+  --bg-card: #0f172a;        /* Azul pizarra profundo */
+  --primary: #38bdf8;        /* Azul cian neón */
+  --primary-glow: rgba(56, 189, 248, 0.3);
+  --text-main: #f1f5f9;      /* Blanco azulado */
+  --text-muted: #94a3b8;     /* Gris frío */
+  --border: #1e293b;         /* Borde sutil */
+  --accent: #818cf8;         /* Violeta futurista */
+  --success: #10b981;
+}
+
+body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  background-image: 
+    radial-gradient(circle at 50% -20%, #1e293b, transparent),
+    radial-gradient(circle at 0% 100%, #0f172a, transparent);
+  min-height: 100vh;
+}
+
+/* Tarjetas Estilo "Nave Espacial" */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+/* Botones con Brillo */
+.btn {
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #020617;
+  box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 25px var(--primary-glow);
+}
+
+.btn-danger {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+}
+
+.btn-danger:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Inputs Futuristas */
+input {
+  background: #1e293b;
+  border: 1px solid var(--border);
+  color: white;
+  padding: 0.8rem;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.2s;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+/* Badges Neón */
+.badge {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  text-shadow: 0 0 5px var(--primary);
+}
+
+/* Contenedor con Padding */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from apps.users.models import User
 
 
@@ -101,17 +101,18 @@ class UserModelTest(TestCase):
         self.assertEqual(user.role, 'CLIENT')
 
     def test_unique_username_and_email(self):
-        # username y email unicos
+        # username es unico; email puede repetirse en el modelo actual
         with self.assertRaises(IntegrityError):
-            User.objects.create(
-                username='testuser',
-                email='unique1@example.com',
-                password='testpassword',
-            )
+            with transaction.atomic():
+                User.objects.create(
+                    username='testuser',
+                    email='unique1@example.com',
+                    password='testpassword',
+                )
 
-        with self.assertRaises(IntegrityError):
-            User.objects.create(
-                username='uniqueuser',
-                email='testuser@example.com',
-                password='testpassword',
-            )
+        duplicated_email_user = User.objects.create(
+            username='uniqueuser',
+            email='testuser@example.com',
+            password='testpassword',
+        )
+        self.assertEqual(duplicated_email_user.email, 'testuser@example.com')

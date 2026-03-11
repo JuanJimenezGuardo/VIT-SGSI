@@ -57,6 +57,10 @@ class TaskAPITest(APITestCase):
         )
         
         cls.url_list = reverse('task-list')
+
+    def setUp(self):
+        # Endpoints de tasks requieren autenticación global en DRF settings.
+        self.client.force_authenticate(user=self.user)
     
     def test_list_tasks_returns_200(self):
         """GET /api/tasks/ debe retornar 200"""

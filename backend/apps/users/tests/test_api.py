@@ -14,12 +14,16 @@ class UserAPITest(APITestCase):
             password='testpassword',
             first_name='Test',
             last_name='User',
-            role='CONSULTANT',
+            role='ADMIN',
             phone='1234567890',
             is_active=True,
         )
 
         cls.url_list = reverse('user-list')
+
+    def setUp(self):
+        # Endpoints de users requieren usuario autenticado con permisos de ADMIN.
+        self.client.force_authenticate(user=self.user)
 
     def test_list_users_returns_200(self):
         # GET debe retornar 200

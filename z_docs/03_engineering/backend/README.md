@@ -80,15 +80,12 @@
 
 ### 1. Configurar Base de Datos
 ```bash
-# PostgreSQL (recomendado)
+# PostgreSQL
 DB_NAME=proyecto_vit
 DB_USER=postgres
 DB_PASSWORD=tu_contraseña
 DB_HOST=localhost
 DB_PORT=5432
-
-# O SQLite (desarrollo local)
-# Ya viene configurado por defecto
 ```
 
 ### 2. Aplicar Migraciones

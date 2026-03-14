@@ -3,9 +3,13 @@
 Duracion: 2 semanas (11-24 marzo)
 Objetivo: Cerrar el modelo de datos solicitado por ingenieria y dejar BD estable.
 
+Nota: documento actualizado retrospectivamente al cierre tecnico de Sprint 2.
+
 ## Politica de Prioridad
 
-Durante este sprint se trabaja primero persistencia. API y frontend se abren solo al final cuando la BD este cerrada.
+Durante este sprint se trabaja primero persistencia.
+
+API y frontend pueden recibir ajustes puntuales si son necesarios para validar el esquema y reducir retrabajo.
 
 ## Alcance Tecnico Congelado
 
@@ -19,61 +23,54 @@ Durante este sprint se trabaja primero persistencia. API y frontend se abren sol
 - Document
 - Asset (sin rediseño)
 
-## Backlog por Fases
+## Backlog Operativo por Persona y Dia
 
-### Fase 1 - Diseno final de BD (Dias 1-2)
-
-1. Cerrar diagrama final con relaciones y cardinalidades.
-2. Congelar enums y nombres de campos.
-3. Definir constraints de integridad.
-
-Entregables:
-- Diagrama aprobado.
-- Lista final de campos por entidad.
-- Reglas de validacion aprobadas.
-
-### Fase 2 - Implementacion de persistencia (Dias 3-5)
-
-1. Crear modelo Contact.
-2. Crear modelo ProjectContact con regla de consistencia de empresa.
-3. Crear modelo Document con estados y aprobacion.
-4. Agregar fechas planned/actual a Project, Phase y Task.
-5. Agregar work_notes en Task.
-6. Mantener Asset como esta.
-
-Entregables:
-- Modelos implementados.
-- Constraints implementados.
-- Migraciones estructurales creadas.
-
-### Fase 3 - Migracion legacy y validacion (Dias 6-8)
-
-1. Data migration de Company.contact_person/contact_position a Contact.
-2. Validar constraints y relaciones.
-3. Verificar integridad de fechas y consistencia project-phase-task-document.
-4. Ajustes de migracion sin abrir API.
-
-Entregables:
-- Migracion legacy validada.
-- BD consistente en entorno local.
-
-### Fase 4 - Habilitacion API minima (Dias 9-10)
-
-1. Abrir serializers basicos.
-2. Abrir viewsets por prioridad: Contact, ProjectContact, Document.
-3. Mantener frontend congelado hasta contrato de datos estable.
-
-Entregables:
-- Primer corte de API sobre esquema estable.
+| Dia | 3pleJ (Backend core + arquitectura) | Osky (Backend persistencia) | Luis (Frontend) |
+| --- | --- | --- | --- |
+| Dia 1 | Cerrar modelo final y arrancar Contact | Preparar base de migraciones y campos planned/actual | Congelar nuevas vistas y revisar impacto UI |
+| Dia 2 | Terminar Contact y empezar ProjectContact | Implementar work_notes y ajustar relaciones existentes | Mapear payload esperado |
+| Dia 3 | Implementar validaciones de ProjectContact | Implementar Document | Documentar ajustes de contrato |
+| Dia 4 | Abrir serializers/viewsets minimos de Contact y ProjectContact | Crear migraciones estructurales | Pruebas de compatibilidad |
+| Dia 5 | Probar constraints criticos y flujo backend core | Ejecutar data migration legacy Company -> Contact | Soporte a validacion de contrato |
+| Dia 6 | Ajustes por hallazgos de migracion | Corregir issues de migracion y consistencia | Corregir bugs criticos |
+| Dia 7 | Refinar contrato API para apertura minima | Validar integridad de relaciones en BD | Ajustar mapeo UI/API |
+| Dia 8 | Endpoints minimos listos para validacion | Datos de prueba y verificacion post-migracion | Preparar integracion de consumo API |
+| Dia 9 | Cierre tecnico de backend core y checklist | Verificacion final de migraciones limpias | Integrar API minima |
+| Dia 10 | Aprobacion de cierre BD y handoff a Sprint 3 | Soporte de estabilizacion final | Validacion funcional de integracion |
 
 ## Lista de Tareas Operativas
 
-- [ ] Actualizar models de companies/projects/phases/tasks.
-- [ ] Crear app contacts (o modulo en companies, segun decision final).
-- [ ] Crear app documents (o modulo en projects, segun decision final).
-- [ ] Crear y ejecutar migraciones.
-- [ ] Ejecutar data migration legacy.
-- [ ] Ejecutar validaciones tecnicas.
+- [x] Actualizar models de companies/projects/phases/tasks.
+- [x] Crear app contacts (o modulo en companies, segun decision final).
+- [x] Crear app documents (o modulo en projects, segun decision final).
+- [x] Crear y ejecutar migraciones.
+- [x] Ejecutar data migration legacy.
+- [x] Ejecutar validaciones tecnicas.
+
+## Responsables por Rol en Sprint 2
+
+### 3pleJ - Arquitectura + Backend core + implementacion
+
+- Implementar Contact.
+- Implementar ProjectContact.
+- Implementar validaciones de negocio y constraints criticos.
+- Implementar serializers/viewsets minimos de Contact y ProjectContact.
+- Revisar diseno final y aprobar cierre tecnico.
+
+### Osky - Backend persistencia + soporte de integracion
+
+- Implementar Document.
+- Aplicar cambios planned/actual y work_notes donde corresponde.
+- Crear migraciones estructurales y ejecutar data migration legacy.
+- Validar constraints y consistencia de relaciones en BD.
+- Corregir issues de migracion y estabilidad.
+
+### Luis - Frontend
+
+- Freeze de nuevas pantallas durante cierre BD (salvo bugs criticos).
+- Preparar mapeo de pantallas contra contrato de datos final.
+- Integrar API minima cuando backend este estable.
+- Reportar ajustes necesarios de contrato durante integracion.
 
 ## Validaciones Obligatorias
 
@@ -87,12 +84,12 @@ python manage.py showmigrations
 
 ## Definicion de BD Cerrada
 
-1. Diagrama final aprobado.
-2. Models definitivos aprobados.
-3. Migraciones limpias.
-4. Data migration legacy validada.
-5. Constraints probados.
-6. Sin cambios pendientes en nombres, relaciones o enums.
+- [x] Diagrama final aprobado.
+- [x] Models definitivos aprobados.
+- [x] Migraciones limpias.
+- [x] Data migration legacy validada.
+- [x] Constraints probados.
+- [x] Sin cambios pendientes en nombres, relaciones o enums.
 
 ## Riesgo que Evita este Plan
 

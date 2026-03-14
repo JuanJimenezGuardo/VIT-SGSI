@@ -1,4 +1,4 @@
-# 📋 Asignaciones por Sprint (Sprint 1-6)
+# 📋 Plan General Sprints 1-6
 
 Desglose día a día y semana a semana de qué construye cada rol. Esto se actualiza cada lunes en la reunión.
 
@@ -9,6 +9,8 @@ Desglose día a día y semana a semana de qué construye cada rol. Esto se actua
 ## ✅ SPRINT 1 (19 feb → 2 mar) — Seguridad Base + Auth [COMPLETADO]
 
 Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real" ✅ LOGRADO
+
+Nota de cierre: el sprint se considera cerrado por cumplimiento de objetivos de seguridad backend. El frente de UI se continua en los sprints de integracion.
 
 ### Arquitecto (3pleJ)
 
@@ -83,7 +85,7 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real" ✅ L
 
 ---
 
-### Frontend Developer (Tinky)
+### Frontend Developer (Luis)
 
 **Semana 1 (19-23 feb):**
 - [ ] Crear página Login
@@ -109,13 +111,10 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real" ✅ L
   - Lista de proyectos visible
   - Detalle abre
 
-**Output esperado (en progreso):**
-- ⏳ Login funciona y guarda token
-- ⏳ Rutas protegidas redirigen
-- ⏳ Dashboard lista proyectos
-- ⏳ 3+ commits por semana
-- ⏳ 1-2 PRs descriptivos
-- ⏳ 0 crashes en React
+**Estado frontend tras Sprint 1 (replanificado):**
+- ⏳ Login y rutas protegidas en integracion progresiva
+- ⏳ Dashboard y vistas de proyecto movidos al sprint de integracion
+- ⏳ Estabilizacion de UI continua en roadmap posterior
 
 **Backend Ready for Integration:** ✅ Todos los endpoints listos
 
@@ -140,13 +139,15 @@ Este sprint sienta las bases de seguridad para producción:
 
 ---
 
-## ✅ SPRINT 2 (11-24 mar) — Reorganizado BD-First
+## ✅ SPRINT 2 (11-24 mar) — BD + refactor + migraciones [CIERRE TECNICO COMPLETADO]
+
+Nota: documento actualizado retrospectivamente al cierre tecnico de Sprint 2.
 
 Objetivo: cerrar y validar el modelo de base de datos antes de abrir API y frontend.
 
 Regla operativa del sprint:
-- Hasta no cerrar BD, no se tocan API ni frontend salvo fixes criticos.
-- No se crean serializers, viewsets, endpoints ni pantallas nuevas durante Fase 1-3.
+- Se prioriza cierre de BD, pero se permiten cambios puntuales en API y frontend para validar el modelo y evitar retrabajo.
+- Durante la etapa de cierre BD se evita abrir nuevas pantallas; se permiten solo ajustes puntuales para validar contrato de datos.
 
 Alcance congelado de entidades:
 - Company
@@ -165,37 +166,54 @@ Cambios obligatorios de esquema:
 - Task incorpora work_notes.
 - Document entra como entidad formal de trazabilidad.
 
-### Arquitecto (3pleJ)
+### 3pleJ (Arquitectura + Backend core + implementacion)
 
 **Semana 1:**
-- [ ] Cerrar y aprobar diagrama final de datos
-- [ ] Congelar nombres de campos, relaciones y enums
-- [ ] Aprobar constraints y reglas de integridad
+- [x] Implementar Contact
+- [x] Implementar ProjectContact
+- [x] Implementar validaciones de negocio y constraints criticos
+- [x] Implementar serializers/viewsets minimos de Contact y ProjectContact
 
 **Semana 2:**
-- [ ] Validar cierre de BD con checklist formal
-- [ ] Autorizar apertura de API solo con esquema estable
+- [x] Refinar contrato API para apertura minima
+- [x] Cerrar checklist tecnico de backend core
+- [x] Aprobar cierre tecnico del sprint
 
 ### Backend Implementador (Osky)
 
 **Semana 1:**
-- [ ] Implementar modelos Contact, ProjectContact y Document
-- [ ] Agregar campos planned/actual en Project, Phase y Task
-- [ ] Agregar work_notes en Task
-- [ ] Crear migraciones estructurales
+- [x] Implementar Document
+- [x] Agregar campos planned/actual en Project, Phase y Task
+- [x] Agregar work_notes en Task
+- [x] Crear migraciones estructurales
 
 **Semana 2:**
-- [ ] Ejecutar data migration legacy Company -> Contact
-- [ ] Validar constraints y relaciones
-- [ ] Resolver issues de migracion sin abrir API
+- [x] Ejecutar data migration legacy Company -> Contact
+- [x] Validar constraints y relaciones
+- [x] Resolver issues de migracion sin abrir API
 
-### Frontend Developer (Tinky)
+### Frontend Developer (Luis)
 
 **Semana 1-2:**
-- [ ] Congelar nuevas pantallas durante Fase 1-3
-- [ ] Atender solo bugs criticos
-- [ ] Preparar mapeo de pantallas contra contrato de datos final
-- [ ] Iniciar integracion cuando BD quede aprobada
+- [x] Congelar nuevas pantallas durante etapa de cierre BD
+- [x] Atender solo bugs criticos
+- [x] Preparar mapeo de pantallas contra contrato de datos final
+- [x] Iniciar integracion cuando la BD este estable; la aprobacion formal se registra al cierre tecnico
+
+### Plan diario por persona (Sprint 2)
+
+| Dia | 3pleJ (Backend core + arquitectura) | Osky (Backend persistencia) | Luis (Frontend) |
+| --- | --- | --- | --- |
+| Dia 1 | Cerrar modelo final y arrancar Contact | Preparar base de migraciones y campos planned/actual | Congelar nuevas vistas y revisar impacto UI |
+| Dia 2 | Terminar Contact y empezar ProjectContact | Implementar work_notes y ajustar relaciones existentes | Mapear payload esperado |
+| Dia 3 | Implementar validaciones de ProjectContact | Implementar Document | Documentar ajustes de contrato |
+| Dia 4 | Abrir serializers/viewsets minimos de Contact y ProjectContact | Crear migraciones estructurales | Pruebas de compatibilidad |
+| Dia 5 | Probar constraints criticos y flujo backend core | Ejecutar data migration legacy Company -> Contact | Soporte a validacion de contrato |
+| Dia 6 | Ajustes por hallazgos de migracion | Corregir issues de migracion y consistencia | Corregir bugs criticos |
+| Dia 7 | Refinar contrato API para apertura minima | Validar integridad de relaciones en BD | Ajustar mapeo UI/API |
+| Dia 8 | Endpoints minimos listos para validacion | Datos de prueba y verificacion post-migracion | Preparar integracion de consumo API |
+| Dia 9 | Cierre tecnico de backend core y checklist | Verificacion final de migraciones limpias | Integrar API minima |
+| Dia 10 | Aprobacion de cierre BD y handoff a Sprint 3 | Soporte de estabilizacion final | Validacion funcional de integracion |
 
 ### 🏭 **Impacto en Producción (Sprint 2)**
 
@@ -206,22 +224,40 @@ Cambios obligatorios de esquema:
 
 ### ✅ Criterio de cierre de BD (obligatorio)
 
-- [ ] Diagrama final aprobado
-- [ ] Models definitivos aprobados
-- [ ] Migraciones limpias
-- [ ] Data migration legacy validada
-- [ ] Constraints probados
-- [ ] Sin cambios pendientes en nombres, relaciones ni enums
+- [x] Diagrama final aprobado
+- [x] Models definitivos aprobados
+- [x] Migraciones limpias
+- [x] Data migration legacy validada
+- [x] Constraints probados
+- [x] Sin cambios pendientes en nombres, relaciones ni enums
 
 ---
 
 ---
 
-## ✅ SPRINT 3 (17-30 mar) — Riesgos (CRÍTICO PARA NOTA)
+## SPRINT 3 (25 mar-7 abr) — API + Integración Frontend
+
+Objetivo: consolidar endpoints del core y cerrar integracion frontend sobre contrato de datos estable.
+
+### 3pleJ (Arquitectura + Backend core)
+
+**Semana 1 (25-29 mar):**
+- [ ] Definir contrato API final para entidades core
+- [ ] Implementar logica critica faltante en backend
+- [ ] Revisar consistencia entre serializers y modelo
+
+**Semana 2 (1-7 abr):**
+- [ ] Coordinar pruebas de integracion backend-frontend
+- [ ] Corregir desviaciones del contrato de datos
+- [ ] Cerrar checklist de integracion
+
+---
+
+## SPRINT 4 (8-21 abr) — Riesgos (CRÍTICO PARA NOTA)
 
 ### Arquitecto (3pleJ)
 
-**Semana 1 (17-21 mar):**
+**Semana 1 (8-12 abr):**
 - [ ] Diseñar modelo Risk (TODO DETALLADO)
   - [ ] Campos inherentes: prob (1-5), impact (1-5), score
   - [ ] Campos residuales: prob, impact, score
@@ -231,56 +267,56 @@ Cambios obligatorios de esquema:
 - [ ] Documentar fórmula en README (1 página mínimo)
 - [ ] Validaciones de negocio
 
-**Semana 2 (24-28 mar):**
+**Semana 2 (15-19 abr):**
 - [ ] Revisar implementación de modelo Risk
 - [ ] Revisar cálculo automático de scores
 - [ ] Revisar relación N:M correcta
 
-**Semana 3 (30 mar):**
+**Semana 3 (20-21 abr):**
 - [ ] Demo
 
 ---
 
 ### Backend Implementador (Osky)
 
-**Semana 1 (17-21 mar):**
+**Semana 1 (8-12 abr):**
 - [ ] Crear modelo Risk según especificación del Arquitecto
 - [ ] Campos: descripción, causa, consecuencia, dueño, fechas, estado
 - [ ] Relación N:M Risk ↔ Asset
 - [ ] Signal automático: cuando cambias "tratamiento" → recalcula "residual"
 
-**Semana 2 (24-28 mar):**
+**Semana 2 (15-19 abr):**
 - [ ] Crear serializer Risk (con scores calculados)
 - [ ] Crear viewset Risk
 - [ ] Endpoint: `/api/projects/{id}/risks/`
 - [ ] Tests (validar que scores se calculan)
 - [ ] PR
 
-**Semana 3 (30 mar):**
+**Semana 3 (20-21 abr):**
 - [ ] Ajustes, demo
 
 ---
 
-### Frontend Developer (Tinky)
+### Frontend Developer (Luis)
 
-**Semana 1 (17-21 mar):**
+**Semana 1 (8-12 abr):**
 - [ ] Página "Riesgos" en detalle proyecto
 - [ ] Tabla de riesgos con score (mostrando inherit y residual)
 - [ ] Columnas: descripción, probabilidad, impacto, score, estado
 
-**Semana 2 (24-28 mar):**
+**Semana 2 (15-19 abr):**
 - [ ] Form crear riesgo
 - [ ] Asociar activos (multiselect)
 - [ ] Form editar tratamiento
 - [ ] Mostrar cambio automático de score residual
 - [ ] PR
 
-**Semana 3 (30 mar):**
+**Semana 3 (20-21 abr):**
 - [ ] Demo
 
 ---
 
-### 🏭 **Impacto en Producción (Sprint 3)**
+### 🏭 **Impacto en Producción (Sprint 4)**
 
 Los riesgos son cálculos críticos en SGSI:
 
@@ -296,17 +332,17 @@ Los riesgos son cálculos críticos en SGSI:
 
 ---
 
-## ✅ SPRINT 4 (31 mar - 13 abr) — SoA + ISO Controls
+## SPRINT 5 (22 abr - 5 may) — SoA + ISO Controls
 
 ### Arquitecto (3pleJ)
 
-**Semana 1 (31 mar - 4 abr):**
+**Semana 1 (22-26 abr):**
 - [ ] Diseñar modelo ISOControl (solo lectura, 93 controles)
 - [ ] Diseñar modelo SoAItem (aplicabilidad, estado, justificación)
 - [ ] Decidir: SoA generado automático vs botón "generar"
 - [ ] Documentar estructura
 
-**Semana 2 (7-11 abr):**
+**Semana 2 (29 abr-3 may):**
 - [ ] Revisar carga de 93 controles
 - [ ] Validar generación automática de SoA
 - [ ] Code review
@@ -315,12 +351,12 @@ Los riesgos son cálculos críticos en SGSI:
 
 ### Backend Implementador (Osky)
 
-**Semana 1 (31 mar - 4 abr):**
+**Semana 1 (22-26 abr):**
 - [ ] Crear modelo ISOControl (campos: código, nombre, descripción)
 - [ ] Crear fixture con 93 controles ISO 27001 (CSV o JSON)
 - [ ] `python manage.py loaddata iso_controls.json`
 
-**Semana 2 (7-11 abr):**
+**Semana 2 (29 abr-3 may):**
 - [ ] Crear modelo SoAItem
 - [ ] Crear signal: cuando creas Project → genera SoAItem para TODOS los ISOControl
 - [ ] Crear serializer y viewset SoAItem
@@ -329,13 +365,13 @@ Los riesgos son cálculos críticos en SGSI:
 
 ---
 
-### Frontend Developer (Tinky)
+### Frontend Developer (Luis)
 
-**Semana 1 (31 mar - 4 abr):**
+**Semana 1 (22-26 abr):**
 - [ ] Página "SoA" en detalle proyecto
 - [ ] Lista de 93 controles
 
-**Semana 2 (7-11 abr):**
+**Semana 2 (29 abr-3 may):**
 - [ ] Checkbox "aplicable"
 - [ ] Campo "justificación" (textarea)
 - [ ] Dropdown "estado" (No aplicable/Sin implementar/En proceso/Implementado)
@@ -345,17 +381,7 @@ Los riesgos son cálculos críticos en SGSI:
 
 ---
 
-### 🏭 **Impacto en Producción (Sprint 3)**
-
-- **Cálculo de Riesgos en Prod:** La fórmula (prob × impacto) debe ser idéntica en dev y prod
-- **Datos Masivos:** 93 controles × múltiples proyectos = cuidado con queries lentas
-- **Caching:** Considerar cachear los 93 controles (no cambian frecuentemente)
-- **Auditlog de Cambios:** Cada Risk o SoAItem modificado debe auditar (quién, cuándo, qué cambió)
-- **Archivos Adjuntos:** Si Risk puede tener evidencias, planificar almacenamiento persistente
-
----
-
-### 🏭 **Impacto en Producción (Sprint 4)**
+### 🏭 **Impacto en Producción (Sprint 5)**
 
 - **Datos de Referencia:** Los 93 ISOControls son datos de solo lectura, versionar en BD
 - **Generación SoA:** Si es automática, testear que genera correctamente con 1000 controles
@@ -366,16 +392,16 @@ Los riesgos son cálculos críticos en SGSI:
 
 ---
 
-## ✅ SPRINT 5 (14-27 abr) — Evidencias + Auditoria Completa
+## SPRINT 6 (6-19 may) — Evidencias + Auditoria Completa + Reportes
 
 ### Arquitecto (3pleJ)
 
-**Semana 1 (14-18 abr):**
+**Semana 1 (6-10 may):**
 - [ ] Diseñar modelo Evidence (archivo, estado, fecha)
 - [ ] Diseñar estados: Pendiente/Aprobado/Rechazado
 - [ ] Relación Evidence ↔ SoAItem
 
-**Semana 2 (21-25 abr):**
+**Semana 2 (13-17 may):**
 - [ ] Revisar subida de archivos
 - [ ] Validar AuditLog completo (Risk, SoAItem, Evidence, Document)
 - [ ] Code review
@@ -384,12 +410,12 @@ Los riesgos son cálculos críticos en SGSI:
 
 ### Backend Implementador (Osky)
 
-**Semana 1 (14-18 abr):**
+**Semana 1 (6-10 may):**
 - [ ] Crear modelo Evidence (file, status, uploaded_at, uploaded_by)
 - [ ] Implementar subida de archivo
 - [ ] Validar que Evidence está vinculada a SoAItem
 
-**Semana 2 (21-25 abr):**
+**Semana 2 (13-17 may):**
 - [ ] Crear serializer y viewset
 - [ ] Endpoint: `/api/projects/{id}/evidence/`
 - [ ] Endpoint: cambiar estado de evidence
@@ -398,13 +424,13 @@ Los riesgos son cálculos críticos en SGSI:
 
 ---
 
-### Frontend Developer (Tinky)
+### Frontend Developer (Luis)
 
-**Semana 1 (14-18 abr):**
+**Semana 1 (6-10 may):**
 - [ ] Página "Evidencias" en detalle proyecto
 - [ ] Tabla con evidencias (archivo, estado, fecha)
 
-**Semana 2 (21-25 abr):**
+**Semana 2 (13-17 may):**
 - [ ] Button subir evidencia (input file)
 - [ ] Mostrar estado (badge de color)
 - [ ] Tabla de logs (quién cambió qué y cuándo)
@@ -412,7 +438,7 @@ Los riesgos son cálculos críticos en SGSI:
 
 ---
 
-### 🏭 **Impacto en Producción (Sprint 5)**
+### 🏭 **Impacto en Producción (Sprint 6)**
 
 **CRÍTICO:** Este sprint define cómo se manejan archivos en producción.
 
@@ -435,80 +461,21 @@ Los riesgos son cálculos críticos en SGSI:
 
 ---
 
-## ✅ SPRINT 6 (28 abr - 11 may) — Reportes + Dashboard
+## 📌 Reportes y Dashboard
 
-### Arquitecto (3pleJ)
-
-**Semana 1 (28 abr - 2 may):**
-- [ ] Definir qué incluye Report
-- [ ] Definir métricas clave:
-  - % controles con evidencia
-  - # riesgos altos
-  - % tareas completadas
-- [ ] Estructura JSON
-
-**Semana 2 (5-9 may):**
-- [ ] Revisar endpoints de métricas
-- [ ] Code review
-
----
-
-### Backend Implementador (Osky)
-
-**Semana 1 (28 abr - 2 may):**
-- [ ] Crear modelo Report
-- [ ] Crear endpoint `/api/projects/{id}/metrics/` que devuelva:
-  ```json
-  {
-    "control_compliance": "45%",
-    "high_risks": 3,
-    "tasks_completed": "60%",
-    "soa_status": "15/93 implementados"
-  }
-  ```
-
-**Semana 2 (5-9 may):**
-- [ ] Crear endpoint para generar Report
-- [ ] Tests básicos
-- [ ] PR
-
----
-
-### Frontend Developer (Tinky)
-
-**Semana 1 (28 abr - 2 may):**
-- [ ] Dashboard Consultant (mostrando proyectos, métricas)
-- [ ] Dashboard Client (progreso, evidencias pendientes)
-
-**Semana 2 (5-9 may):**
-- [ ] Cards con métricas (% compliance, # riesgos, etc.)
-- [ ] Gráficas básicas (progress bar, badges)
-- [ ] Links rápidos a secciones principales
-- [ ] PR
-
----
-
-### 🏭 **Impacto en Producción (Sprint 6)**
-
-- **Reportes en Prod:** Los reportes acceden a datos en vivo (no caché), queries optimizadas
-- **Cálculo de Métricas:** NO hacer cálculos complejos en la request (lazy agregation)
-- **Exportación PDF:** Si se exportan reportes a PDF, usar librería que no quebre (reportlab, weasyprint)
-- **Carga de Datos:** En prod, 1000 proyectos × 93 controles = 93k registros, performance crítica
-- **Paginación:** Todos los endpoints deben paginar (no devolver 10k registros de una)
-- **Rate Limiting:** Endpoint de reportes puede ser costoso, limitar a 5 req/hora/usuario
-- **Scheduling (Futuro):** Si los reportes son automáticos, usar Celery + Redis (no ahora, pero planificar)
+El trabajo de reportes y dashboard se ejecuta dentro de Sprint 6 como parte del cierre funcional para demo y entrega.
 
 ---
 
 ---
 
-## 📅 BUFFER (12-15 may) — QA + Demo Final
+## 📅 BUFFER (20-23 may) — QA + Demo Final
 
 ### Equipo Completo
 
 - [ ] Pruebas completas (flujo end-to-end)
 - [ ] Correcciones de bugs
-- [ ] Crear datos demo (1 proyecto completamente llenadoconbdatos)
+- [ ] Crear datos demo (1 proyecto completamente llenado con datos)
 - [ ] Grabar video de 5-8 min (demo final)
 - [ ] Documentación final
 - [ ] Tag final: `v1.0-production-ready`
@@ -519,29 +486,29 @@ Los riesgos son cálculos críticos en SGSI:
 
 ### Arquitecto + Líder Técnico (3pleJ)
 - Sprint 1: Diseño Auth + permisos + ProjectUser + AuditLog + implementación User/permisos
-- Sprint 2: Cierre de modelo BD-first (Contact, ProjectContact, Document, fechas planned/actual, constraints)
-- Sprint 3: Diseño Risk (CRÍTICO) + fórmula + cálculos
-- Sprint 4: Diseño SoA + fixture ISO 27001
-- Sprint 5: Diseño Evidence + auditoría completa
-- Sprint 6: Definir métricas
+- Sprint 2: Implementar Contact y ProjectContact, validaciones/constraints críticos y serializers/viewsets mínimos
+- Sprint 3: Contrato API final + integración backend/frontend
+- Sprint 4: Diseño Risk (CRÍTICO) + fórmula + cálculos
+- Sprint 5: Diseño SoA + fixture ISO 27001
+- Sprint 6: Diseño Evidence + auditoría + métricas/reportes
 - **Total:** Diseño arquitectónico + implementación de core + code review todo
 
 ### Backend Implementador
 - Sprint 1: Implementar JWT + ProjectUser + AuditLog signals
-- Sprint 2: Implementar persistencia BD-first (Contact, ProjectContact, Document, migraciones y validaciones)
-- Sprint 3: Risk + scoring automático
-- Sprint 4: Fixtures + SoAItem automático
-- Sprint 5: Evidence + upload
-- Sprint 6: Métricas + Report
+- Sprint 2: Implementar Document, campos planned/actual y work_notes, migraciones y data migration legacy
+- Sprint 3: Consolidación de APIs core + soporte de integración
+- Sprint 4: Risk + scoring automático
+- Sprint 5: Fixtures + SoAItem automático
+- Sprint 6: Evidence + upload + métricas/reportes
 - **Total:** CRUD endpoints + signals + validaciones
 
 ### Frontend Developer
 - Sprint 1: Login + layout + rutas protegidas
-- Sprint 2: Frontend congelado durante Fase 1-3, solo bugs críticos y preparación de contrato de datos
-- Sprint 3: Riesgos UI + scoring visual
-- Sprint 4: SoA UI + checkboxes
-- Sprint 5: Evidencias UI + upload
-- Sprint 6: Dashboards
+- Sprint 2: Frontend congelado durante etapa de cierre BD, solo bugs críticos y preparación de contrato de datos
+- Sprint 3: Integración de pantallas core con APIs estabilizadas
+- Sprint 4: Riesgos UI + scoring visual
+- Sprint 5: SoA UI + checkboxes
+- Sprint 6: Evidencias UI + upload + dashboards
 - **Total:** Todas las páginas del sistema
 
 ---
@@ -566,9 +533,9 @@ Los riesgos son cálculos críticos en SGSI:
 
 ### Sprint 3
 
-**🟢 Verde:** Risk modelo completo, scoring automático funciona, UI muestra scores inherente y residual  
-**🟡 Amarillo:** Modelo Risk existe pero scoring con bugs  
-**🔴 Rojo:** Risk no existe, scoring no funciona, 0 commits  
+**🟢 Verde:** APIs core integradas con frontend, sin desviaciones de contrato y con pruebas básicas de flujo  
+**🟡 Amarillo:** Integración parcial con endpoints pendientes o fallos aislados en flujos críticos  
+**🔴 Rojo:** Integración bloqueada, contrato API inestable, o UI sin consumir backend real  
 
 ---
 
@@ -578,4 +545,3 @@ Similar: modelos implementados ✅, endpoints funcionales ✅, UI visible ✅
 
 ---
 
-**¿Dudas sobre tareas?** Pregúntale a los que correspondan, no hagas todo tú 😎

@@ -20,6 +20,7 @@ class Contact(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    work_notes = models.TextField(blank=True)   
 
     class Meta:
         db_table = 'contacts_contact'

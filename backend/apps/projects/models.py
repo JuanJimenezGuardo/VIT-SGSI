@@ -95,6 +95,8 @@ class ProjectContact(models.Model):
     is_primary = models.BooleanField(default=False, verbose_name='Es contacto principal')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creación')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Fecha de actualización')
+    work_notes = models.TextField(blank=True)   
+
 
     class Meta:
         db_table = 'projects_projectcontact'

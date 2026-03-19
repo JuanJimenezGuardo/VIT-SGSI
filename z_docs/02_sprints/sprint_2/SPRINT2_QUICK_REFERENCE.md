@@ -1,4 +1,4 @@
-﻿# Sprint 2 - Quick Reference (BD-First)
+# Sprint 2 - Quick Reference (BD-First)
 
 Periodo: 11-24 marzo 2026
 Objetivo: Cerrar y validar el modelo de base de datos antes de abrir API y frontend.
@@ -45,7 +45,7 @@ Durante la etapa de cierre BD (dias 1-8) se evita abrir nuevas pantallas; se per
 
 La siguiente tabla refleja avance operativo real por dia para evitar mezclar pendientes con tareas ya ejecutadas.
 
-| Dia | 3pleJ (Backend core + arquitectura) | Osky (Backend persistencia) | Luis (Frontend) |
+| Dia | Juan Jose Jimenez Guardo (Backend core + arquitectura) | Osky (Backend persistencia) | Luis (Frontend) |
 | --- | --- | --- | --- |
 | Dia 1 | Se cerro modelo final y se arranco Contact | Se preparo base de migraciones y campos planned/actual | Se congelaron nuevas vistas y se reviso impacto UI |
 | Dia 2 | Se termino Contact y se inicio ProjectContact | Se implemento work_notes y se ajustaron relaciones existentes | Se mapeo payload esperado por pantalla |
@@ -60,7 +60,7 @@ La siguiente tabla refleja avance operativo real por dia para evitar mezclar pen
 
 ## Asignacion Operativa por Persona (Sprint 2)
 
-### 3pleJ - Arquitectura + Backend core + implementacion
+### Juan Jose Jimenez Guardo - Arquitectura + Backend core + implementacion
 
 - Implementar Contact.
 - Implementar ProjectContact.

@@ -1,7 +1,7 @@
 # API Validation Day 5
 
 Fecha: 2026-03-18
-Responsable: 3pleJ
+Responsable: Juan Jose Jimenez Guardo
 Sprint: 2
 
 ## Alcance validado
@@ -64,7 +64,5 @@ Resultado:
 - Document serializer: conversion de ValidationError de modelo a respuesta DRF 400
 
 ## Conclusion
-
-Paso 2 completado.
 
 La API cumple el checklist solicitado para los tres modulos: GET, POST, PATCH y validacion 400.

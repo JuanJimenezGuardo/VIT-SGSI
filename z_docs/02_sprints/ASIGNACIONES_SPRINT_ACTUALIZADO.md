@@ -1,8 +1,10 @@
-﻿# Asignaciones por Sprint (Sprint 1-6)
+# Asignaciones por Sprint (Sprint 1-6)
 
 ESTRUCTURA DEL PROYECTO:
 - Sprint 1 (COMPLETADO): objetivos de seguridad backend cerrados; frontend continua en integracion planificada
 - Sprints 2-6: En ejecucion con plan operativo por persona y prioridad de base de datos
+
+Responsable Backend core (Juan Jose Jimenez Guardo): Juan Jose Jimenez Guardo.
 
 IMPORTANTE: Todos los sprints estan condicionados por la arquitectura de produccion definida en ARQUITECTURA_DESPLIEGUE_PRODUCCION.md.
 
@@ -40,7 +42,7 @@ Se prioriza cierre de BD, pero se permiten cambios puntuales en API y frontend c
 
 ### Asignaciones por rol
 
-#### 3pleJ (Arquitectura + Backend core + implementacion)
+#### Juan Jose Jimenez Guardo (Arquitectura + Backend core + implementacion)
 
 - [x] Implementar Contact
 - [x] Implementar ProjectContact
@@ -67,18 +69,18 @@ Se prioriza cierre de BD, pero se permiten cambios puntuales en API y frontend c
 ### Plan semanal
 
 Semana 1:
-- [x] Dia 1: 3pleJ cierra modelo y arranca Contact; Osky prepara migraciones base y planned/actual; Luis congela nuevas vistas
-- [x] Dia 2: 3pleJ termina Contact e inicia ProjectContact; Osky implementa work_notes; Luis mapea payload
-- [x] Dia 3: 3pleJ implementa validaciones de ProjectContact; Osky implementa Document; Luis documenta ajustes de contrato
-- [x] Dia 4: 3pleJ abre serializers/viewsets minimos; Osky crea migraciones estructurales; Luis hace pruebas de compatibilidad
-- [x] Dia 5: 3pleJ prueba constraints criticos; Osky ejecuta data migration legacy; Luis soporta validacion de contrato
+- [x] Dia 1: Juan Jose Jimenez Guardo cierra modelo y arranca Contact; Osky prepara migraciones base y planned/actual; Luis congela nuevas vistas
+- [x] Dia 2: Juan Jose Jimenez Guardo termina Contact e inicia ProjectContact; Osky implementa work_notes; Luis mapea payload
+- [x] Dia 3: Juan Jose Jimenez Guardo implementa validaciones de ProjectContact; Osky implementa Document; Luis documenta ajustes de contrato
+- [x] Dia 4: Juan Jose Jimenez Guardo abre serializers/viewsets minimos; Osky crea migraciones estructurales; Luis hace pruebas de compatibilidad
+- [x] Dia 5: Juan Jose Jimenez Guardo prueba constraints criticos; Osky ejecuta data migration legacy; Luis soporta validacion de contrato
 
 Semana 2:
-- [x] Dia 6: 3pleJ ajusta validaciones por hallazgos; Osky corrige issues de migracion; Luis corrige bugs criticos
-- [x] Dia 7: 3pleJ refina contrato API; Osky valida integridad de relaciones; Luis ajusta mapeo UI/API
-- [x] Dia 8: 3pleJ deja endpoints minimos listos; Osky verifica post-migracion; Luis prepara integracion final
-- [x] Dia 9: 3pleJ cierra checklist tecnico; Osky verifica migraciones limpias; Luis integra API minima
-- [x] Dia 10: 3pleJ aprueba cierre BD; Osky da soporte final; Luis valida integracion funcional
+- [x] Dia 6: Juan Jose Jimenez Guardo ajusta validaciones por hallazgos; Osky corrige issues de migracion; Luis corrige bugs criticos
+- [x] Dia 7: Juan Jose Jimenez Guardo refina contrato API; Osky valida integridad de relaciones; Luis ajusta mapeo UI/API
+- [x] Dia 8: Juan Jose Jimenez Guardo deja endpoints minimos listos; Osky verifica post-migracion; Luis prepara integracion final
+- [x] Dia 9: Juan Jose Jimenez Guardo cierra checklist tecnico; Osky verifica migraciones limpias; Luis integra API minima
+- [x] Dia 10: Juan Jose Jimenez Guardo aprueba cierre BD; Osky da soporte final; Luis valida integracion funcional
 
 ### Criterio de cierre de Sprint 2
 

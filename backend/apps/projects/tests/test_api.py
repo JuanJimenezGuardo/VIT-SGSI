@@ -6,7 +6,8 @@ from rest_framework.test import APITestCase
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from apps.companies.models import Company
-from apps.projects.models import Project, ProjectUser
+from apps.contacts.models import Contact
+from apps.projects.models import Project, ProjectUser, ProjectContact
 
 User = get_user_model()
 
@@ -124,6 +125,10 @@ class ProjectContactAPITest(APITestCase):
             name='Test Company',
             rfc='123456789'
         )
+        self.other_company = Company.objects.create(
+            name='Other Company',
+            rfc='987654321'
+        )
         self.user = User.objects.create_user(
             username='testuser',
             email='test@test.com',
@@ -135,6 +140,16 @@ class ProjectContactAPITest(APITestCase):
             company=self.company,
             created_by=self.user
         )
+        self.contact = Contact.objects.create(
+            company=self.company,
+            full_name='Contacto QA',
+            email='contactoqa@test.com'
+        )
+        self.other_contact = Contact.objects.create(
+            company=self.other_company,
+            full_name='Contacto externo',
+            email='externo@test.com'
+        )
 
         refresh = RefreshToken.for_user(self.user)
         self.token = str(refresh.access_token)
@@ -143,3 +158,45 @@ class ProjectContactAPITest(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
         response = self.client.get('/api/project-contacts/', format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_create_project_contact(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        payload = {
+            'project': self.project.id,
+            'contact': self.contact.id,
+            'contact_role': 'PROJECT_MANAGER',
+            'is_primary': True,
+            'work_notes': 'Contacto principal del proyecto'
+        }
+        response = self.client.post('/api/project-contacts/', payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['contact_role'], 'PROJECT_MANAGER')
+
+    def test_patch_project_contact(self):
+        project_contact = ProjectContact.objects.create(
+            project=self.project,
+            contact=self.contact,
+            contact_role='CISO',
+            is_primary=False,
+            work_notes='Inicial'
+        )
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        payload = {
+            'is_primary': True,
+            'work_notes': 'Actualizado por QA'
+        }
+        response = self.client.patch(f'/api/project-contacts/{project_contact.id}/', payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['is_primary'])
+        self.assertEqual(response.data['work_notes'], 'Actualizado por QA')
+
+    def test_create_project_contact_cross_company_returns_400(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        payload = {
+            'project': self.project.id,
+            'contact': self.other_contact.id,
+            'contact_role': 'CONSULTANT',
+            'is_primary': False
+        }
+        response = self.client.post('/api/project-contacts/', payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

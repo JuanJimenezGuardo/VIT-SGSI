@@ -122,3 +122,15 @@ class DocumentAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['planned_date'], '2026-03-20')
         self.assertEqual(response.data['actual_date'], '2026-03-22')
+
+    def test_create_approved_document_without_approver_returns_400(self):
+        payload = {
+            'project': self.project.id,
+            'title': 'Documento aprobado inválido',
+            'doc_type': 'POLICY',
+            'status': 'APPROVED',
+            'version': '1.0',
+            'file': self._build_file('approved_invalid.txt')
+        }
+        response = self.client.post('/api/documents/', payload, format='multipart')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

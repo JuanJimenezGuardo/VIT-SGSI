@@ -11,6 +11,6 @@ class DocumentSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'project', 'project_name', 'phase', 'task', 'title', 'doc_type',
             'status', 'file', 'version', 'approved_by', 'approved_at',
-            'created_at', 'updated_at'
+            'created_at', 'updated_at', 'planned_date', 'actual_date'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']

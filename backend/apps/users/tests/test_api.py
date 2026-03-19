@@ -1,6 +1,7 @@
-from rest_framework.test import APITestCase
-from rest_framework import status
 from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
+
 from apps.users.models import User
 
 
@@ -22,16 +23,13 @@ class UserAPITest(APITestCase):
         cls.url_list = reverse('user-list')
 
     def setUp(self):
-        # Endpoints de users requieren usuario autenticado con permisos de ADMIN.
         self.client.force_authenticate(user=self.user)
 
     def test_list_users_returns_200(self):
-        # GET debe retornar 200
         response = self.client.get(self.url_list)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_list_users_returns_multiple_items(self):
-        # verificar lista de users
         User.objects.create(
             username='testuser2',
             email='testuser2@example.com',
@@ -47,7 +45,6 @@ class UserAPITest(APITestCase):
             self.assertEqual(len(data), 2)
 
     def test_create_user_returns_201(self):
-        # POST debe retornar 201
         payload = {
             'username': 'newuser',
             'email': 'newuser@example.com',
@@ -65,7 +62,6 @@ class UserAPITest(APITestCase):
         self.assertTrue(User.objects.filter(username='newuser').exists())
 
     def test_retrieve_user_returns_200(self):
-        # GET con id debe retornar 200
         url = reverse('user-detail', args=[self.user.id])
         response = self.client.get(url)
 
@@ -73,7 +69,6 @@ class UserAPITest(APITestCase):
         self.assertEqual(response.data['username'], 'testuser')
 
     def test_update_user_returns_200(self):
-        # PATCH debe actualizar y retornar 200
         url = reverse('user-detail', args=[self.user.id])
         payload = {
             'first_name': 'Updated',
@@ -87,7 +82,6 @@ class UserAPITest(APITestCase):
         self.assertEqual(response.data['last_name'], 'Name')
 
     def test_delete_user_returns_204(self):
-        # DELETE debe retornar 204
         user = User.objects.create(
             username='todelete',
             email='todelete@example.com',
@@ -101,7 +95,6 @@ class UserAPITest(APITestCase):
         self.assertFalse(User.objects.filter(id=user.id).exists())
 
     def test_create_user_missing_username_returns_400(self):
-        # sin username debe dar error 400
         payload = {
             'email': 'nouser@example.com',
             'role': 'CLIENT',
@@ -112,7 +105,6 @@ class UserAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_create_user_invalid_role_returns_400(self):
-        # role invalido debe dar error 400
         payload = {
             'username': 'badrole',
             'email': 'badrole@example.com',
@@ -122,3 +114,4 @@ class UserAPITest(APITestCase):
         response = self.client.post(self.url_list, payload, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+

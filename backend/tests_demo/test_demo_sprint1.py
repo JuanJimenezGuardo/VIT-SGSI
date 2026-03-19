@@ -83,7 +83,7 @@ def test_create_project(token, username):
         "description": "Proyecto creado automáticamente por script de prueba",
         "company": 1,  # ACME Corporation
         "status": "PLANNING",
-        "start_date": "2026-03-05"
+        "planned_start_date": "2026-03-05"
     }
     
     try:

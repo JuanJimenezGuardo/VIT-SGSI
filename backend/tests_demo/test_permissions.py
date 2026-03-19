@@ -199,8 +199,6 @@ test_company, _ = Company.objects.get_or_create(
         'city': 'Test City',
         'state': 'Test State',
         'country': 'Colombia',
-        'contact_person': 'Test Person',
-        'contact_position': 'Manager'
     }
 )
 
@@ -209,7 +207,7 @@ test_project, created = Project.objects.get_or_create(
     defaults={
         'company': test_company,
         'status': 'PLANNING',
-        'start_date': '2026-03-01',
+        'planned_start_date': '2026-03-01',
         'created_by': admin_user
     }
 )

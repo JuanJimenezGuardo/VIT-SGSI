@@ -44,8 +44,6 @@ company, created = Company.objects.get_or_create(
         'city': 'Bogota',
         'state': 'Cundinamarca',
         'country': 'Colombia',
-        'contact_person': 'John Doe',
-        'contact_position': 'CEO'
     }
 )
 print(f"✅ Empresa: {company.name} {'(creada)' if created else '(existente)'}")
@@ -61,7 +59,7 @@ project = Project.objects.create(
     description='Proyecto de prueba para validar signals',
     company=company,
     status='PLANNING',
-    start_date=date.today(),
+    planned_start_date=date.today(),
     created_by=admin_user
 )
 print(f"✅ Proyecto creado: {project.name} (ID: {project.id})")
@@ -85,7 +83,7 @@ phase = Phase.objects.create(
     name='Fase de Evaluacion',
     type='ASSESSMENT',
     description='Fase de prueba',
-    start_date=datetime.now(),
+    planned_start_date=datetime.now(),
     order=1
 )
 print(f"✅ Fase creada: {phase.name} (ID: {phase.id})")
@@ -108,7 +106,7 @@ task = Task.objects.create(
     assigned_to=admin_user,
     priority='HIGH',
     status='PENDING',
-    due_date=date.today()
+    planned_end_date=date.today()
 )
 print(f"✅ Tarea creada: {task.name} (ID: {task.id})")
 

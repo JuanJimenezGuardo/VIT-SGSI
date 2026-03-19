@@ -14,7 +14,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             'planned_start_date', 'planned_end_date', 'actual_start_date', 'actual_end_date',
             'created_by', 'created_by_name', 'created_at', 'updated_at'
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'created_at', 'updated_at', 'created_by', 'created_by_name']
 
 
 class ProjectUserSerializer(serializers.ModelSerializer):
@@ -40,7 +40,7 @@ class ProjectContactSerializer(serializers.ModelSerializer):
         model = ProjectContact
         fields = [
             'id', 'project', 'project_name', 'contact', 'contact_name',
-            'contact_role', 'is_primary', 'created_at', 'updated_at'
+            'contact_role', 'is_primary', 'work_notes', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']
 

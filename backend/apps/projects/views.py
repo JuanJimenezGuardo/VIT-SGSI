@@ -28,6 +28,9 @@ class ProjectViewSet(viewsets.ModelViewSet):
         else:
             # Filtrar por proyectos donde el usuario está asignado
             return Project.objects.filter(project_users__user=user).distinct()
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
     
     @action(detail=True, methods=['get'])
     def users(self, request, pk=None):

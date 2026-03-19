@@ -82,3 +82,19 @@ class ContactAPITest(APITestCase):
         response = self.client.get(f'/api/contacts/{contact.id}/', format='json')
         self.assertIn('work_notes', response.data)
         self.assertEqual(response.data['work_notes'], 'Campo visible')
+
+    def test_create_contact_duplicate_email_returns_400(self):
+        Contact.objects.create(
+            company=self.company,
+            full_name='Existente',
+            email='duplicado@test.com'
+        )
+
+        payload = {
+            'company': self.company.id,
+            'full_name': 'Duplicado',
+            'email': 'duplicado@test.com',
+            'position': 'Analista'
+        }
+        response = self.client.post('/api/contacts/', payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

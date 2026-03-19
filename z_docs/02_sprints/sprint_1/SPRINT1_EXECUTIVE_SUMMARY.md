@@ -255,9 +255,9 @@ def test_client_only_sees_own_projects(self):
 
 ## 📞 Contacto
 
-**Desarrollador:** [Tu Nombre]  
-**Email:** [Tu Email]  
-**GitHub:** [Tu Repo]  
+**Desarrollador:** Juan Jose Jimenez Guardo  
+**Email:** juanjimenezg207@gmail.com  
+**GitHub:** https://github.com/JuanJimenezGuardo/Proyecto_VIT  
 **Proyecto:** VIT - ISO 27001 Platform  
 
 ---

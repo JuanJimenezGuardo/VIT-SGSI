@@ -1,7 +1,8 @@
-﻿# Sprint 2 - Backlog Detallado (BD-First)
+# Sprint 2 - Backlog Detallado (BD-First)
 
 Duracion: 2 semanas (11-24 marzo)
 Objetivo: Cerrar el modelo de datos solicitado por ingenieria y dejar BD estable.
+Responsable Backend core (Juan Jose Jimenez Guardo): Juan Jose Jimenez Guardo
 
 Nota: documento actualizado retrospectivamente al cierre tecnico de Sprint 2.
 
@@ -25,7 +26,7 @@ API y frontend pueden recibir ajustes puntuales si son necesarios para validar e
 
 ## Backlog Operativo por Persona y Dia
 
-| Dia | 3pleJ (Backend core + arquitectura) | Osky (Backend persistencia) | Luis (Frontend) |
+| Dia | Juan Jose Jimenez Guardo (Backend core + arquitectura) | Osky (Backend persistencia) | Luis (Frontend) |
 | --- | --- | --- | --- |
 | Dia 1 | Cerrar modelo final y arrancar Contact | Preparar base de migraciones y campos planned/actual | Congelar nuevas vistas y revisar impacto UI |
 | Dia 2 | Terminar Contact y empezar ProjectContact | Implementar work_notes y ajustar relaciones existentes | Mapear payload esperado |
@@ -49,7 +50,7 @@ API y frontend pueden recibir ajustes puntuales si son necesarios para validar e
 
 ## Responsables por Rol en Sprint 2
 
-### 3pleJ - Arquitectura + Backend core + implementacion
+### Juan Jose Jimenez Guardo - Arquitectura + Backend core + implementacion
 
 - Implementar Contact.
 - Implementar ProjectContact.

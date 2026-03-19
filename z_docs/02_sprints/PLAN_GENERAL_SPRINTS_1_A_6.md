@@ -1,6 +1,7 @@
 # 📋 Plan General Sprints 1-6
 
 Desglose día a día y semana a semana de qué construye cada rol. Esto se actualiza cada lunes en la reunión.
+Responsable Backend core (Juan Jose Jimenez Guardo): Juan Jose Jimenez Guardo.
 
 **IMPORTANTE:** Todos los sprints están condicionados por la arquitectura de producción definida en `ARQUITECTURA_DESPLIEGUE_PRODUCCION.md`. Cada decisión técnica debe considerar su impacto en el deployment final.
 
@@ -12,7 +13,7 @@ Objetivo: Pasar de "API abierta" a "plataforma con control de acceso real" ✅ L
 
 Nota de cierre: el sprint se considera cerrado por cumplimiento de objetivos de seguridad backend. El frente de UI se continua en los sprints de integracion.
 
-### Arquitecto (3pleJ)
+### Arquitecto (Juan Jose Jimenez Guardo)
 
 **Semana 1 (19-23 feb):**
 - [x] Diseñar estructura de permisos (Admin, Consultant, Client)
@@ -166,7 +167,7 @@ Cambios obligatorios de esquema:
 - Task incorpora work_notes.
 - Document entra como entidad formal de trazabilidad.
 
-### 3pleJ (Arquitectura + Backend core + implementacion)
+### Juan Jose Jimenez Guardo (Arquitectura + Backend core + implementacion)
 
 **Semana 1:**
 - [x] Implementar Contact
@@ -202,7 +203,7 @@ Cambios obligatorios de esquema:
 
 ### Plan diario por persona (Sprint 2)
 
-| Dia | 3pleJ (Backend core + arquitectura) | Osky (Backend persistencia) | Luis (Frontend) |
+| Dia | Juan Jose Jimenez Guardo (Backend core + arquitectura) | Osky (Backend persistencia) | Luis (Frontend) |
 | --- | --- | --- | --- |
 | Dia 1 | Cerrar modelo final y arrancar Contact | Preparar base de migraciones y campos planned/actual | Congelar nuevas vistas y revisar impacto UI |
 | Dia 2 | Terminar Contact y empezar ProjectContact | Implementar work_notes y ajustar relaciones existentes | Mapear payload esperado |
@@ -239,7 +240,7 @@ Cambios obligatorios de esquema:
 
 Objetivo: consolidar endpoints del core y cerrar integracion frontend sobre contrato de datos estable.
 
-### 3pleJ (Arquitectura + Backend core)
+### Juan Jose Jimenez Guardo (Arquitectura + Backend core)
 
 **Semana 1 (25-29 mar):**
 - [ ] Definir contrato API final para entidades core
@@ -255,7 +256,7 @@ Objetivo: consolidar endpoints del core y cerrar integracion frontend sobre cont
 
 ## SPRINT 4 (8-21 abr) — Riesgos (CRÍTICO PARA NOTA)
 
-### Arquitecto (3pleJ)
+### Arquitecto (Juan Jose Jimenez Guardo)
 
 **Semana 1 (8-12 abr):**
 - [ ] Diseñar modelo Risk (TODO DETALLADO)
@@ -334,7 +335,7 @@ Los riesgos son cálculos críticos en SGSI:
 
 ## SPRINT 5 (22 abr - 5 may) — SoA + ISO Controls
 
-### Arquitecto (3pleJ)
+### Arquitecto (Juan Jose Jimenez Guardo)
 
 **Semana 1 (22-26 abr):**
 - [ ] Diseñar modelo ISOControl (solo lectura, 93 controles)
@@ -394,7 +395,7 @@ Los riesgos son cálculos críticos en SGSI:
 
 ## SPRINT 6 (6-19 may) — Evidencias + Auditoria Completa + Reportes
 
-### Arquitecto (3pleJ)
+### Arquitecto (Juan Jose Jimenez Guardo)
 
 **Semana 1 (6-10 may):**
 - [ ] Diseñar modelo Evidence (archivo, estado, fecha)
@@ -484,7 +485,7 @@ El trabajo de reportes y dashboard se ejecuta dentro de Sprint 6 como parte del 
 
 ## 📊 Resumen: Tareas totales por rol
 
-### Arquitecto + Líder Técnico (3pleJ)
+### Arquitecto + Líder Técnico (Juan Jose Jimenez Guardo)
 - Sprint 1: Diseño Auth + permisos + ProjectUser + AuditLog + implementación User/permisos
 - Sprint 2: Implementar Contact y ProjectContact, validaciones/constraints críticos y serializers/viewsets mínimos
 - Sprint 3: Contrato API final + integración backend/frontend

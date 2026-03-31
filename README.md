@@ -1,8 +1,10 @@
 # Plataforma SGSI ISO 27001:2022 - Portafolio Publico
 
-Proyecto academico orientado al diseno y desarrollo de una aplicacion web para apoyar la gestion de seguridad de la informacion en una organizacion, aplicando la norma ISO 27001:2022. La solucion permite organizar activos, riesgos, usuarios, controles y documentacion asociada al SGSI.
+Este repositorio presenta una version de portafolio del proyecto academico VIT - Plataforma SGSI basada en ISO 27001:2022.
 
-El desarrollo completo del proyecto se trabajo en un repositorio privado durante el proceso academico. Esta version publica muestra la arquitectura, componentes implementados, evidencia tecnica y una muestra representativa del trabajo.
+El desarrollo principal se trabajo en un repositorio privado durante el proyecto.
+
+Aqui se documentan el objetivo, la arquitectura, las tecnologias utilizadas, evidencias visuales y una muestra representativa del trabajo realizado.
 
 ---
 
@@ -23,10 +25,10 @@ Construir una plataforma para apoyar a organizaciones en la implementacion de IS
 
 ## Mi Rol
 
-- Liderazgo y coordinacion tecnica del proyecto
-- Definicion de alcance, arquitectura y plan de sprints
-- Desarrollo de funcionalidades backend y soporte a integracion frontend
-- Seguimiento de entregables, calidad tecnica y evidencia de avance
+- Liderazgo y coordinacion del equipo
+- Comunicacion con stakeholders
+- Definicion de requerimientos
+- Desarrollo de funcionalidades del sistema
 
 ---
 

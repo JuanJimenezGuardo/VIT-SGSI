@@ -133,75 +133,11 @@ Construir una plataforma para apoyar a organizaciones en la implementacion de IS
 
 ---
 
-## 📚 Documentos del Proyecto
+## Documentacion Publica
 
-### 1. **PLAN_EQUIPOS_SPRINT_1.md**
-Define roles y responsabilidades:
-- Arquitecto + Líder Técnico (diseño, code review, decisiones tech)
-- Backend Implementador (CRUD endpoints, signals, tests)
-- Frontend Developer (React components, UI, API calls)
+La version publica prioriza informacion tecnica de alto nivel, arquitectura, stack y evidencias funcionales.
 
-Incluye:
-- Reuniones (Lunes 30min, Miércoles async, Viernes demo 45min)
-- Governance (Git commits, PRs, demos como evidencia)
-- Cultura de trabajo sin micromanagement
-
-### 2. **ASIGNACIONES_SPRINT_1_A_6.md**
-Desglose semana a semana de tareas con:
-- Actividades por rol en cada sprint
-- "Impacto en Producción" para cada sprint (decisiones técnicas)
-- Output esperado y métricas
-- Rojo/Amarillo/Verde por sprint
-
-### 3. **SPRINT_1_GUIA_BACKEND.md**
-Tutorial completo para Backend Implementador:
-- Conceptos (AbstractUser, JWT, ProjectUser, AuditLog)
-- 10 días detallados (Día 1-10)
-- Checkpoints de validación
-- Errores comunes y soluciones
-
-### 4. **CHECKLIST_SEMANAL_SPRINT_1.md**
-Validación semanal (Viernes):
-- Preguntas técnicas para cada rol
-- Semáforo 🟢/🟡/🔴
-- FAQ y troubleshooting
-
-### 5. **MONITOREO_SEMANAL.md**
-Sistema de governance:
-- Lunes: planificación
-- Miércoles: mid-week checkpoint
-- Viernes: demo + validación técnica
-- Escaladra de problemas (bloqueadores)
-
-### 6. **ARQUITECTURA_DESPLIEGUE_PRODUCCION.md** ⭐
-**DOCUMENTO CLAVE**: Arquitectura transversal que condiciona TODO:
-- Stack elegido (Render + Vercel + PostgreSQL + S3)
-- Django production settings (DEBUG=False, HTTPS, etc)
-- Variables de entorno
-- Migraciones seguras
-- CI/CD automático
-- Costos ($27/mes MVP)
-- Checklist pre-lanzamiento
-- Riesgos y mitigación
-
----
-
-## 🚀 Comienza Aquí
-
-### Para Arquitecto/Líder:
-1. Leer [PLAN_EQUIPOS_SPRINT_1.md](PLAN_EQUIPOS_SPRINT_1.md) — tu rol
-2. Revisar [ARQUITECTURA_DESPLIEGUE_PRODUCCION.md](ARQUITECTURA_DESPLIEGUE_PRODUCCION.md) — decisiones tech
-3. Ejecutar reunión Lunes 24 feb
-
-### Para Backend Implementador:
-1. Leer [SPRINT_1_GUIA_BACKEND.md](SPRINT_1_GUIA_BACKEND.md) — tu tutorial completo
-2. Revisar [ARQUITECTURA_DESPLIEGUE_PRODUCCION.md](ARQUITECTURA_DESPLIEGUE_PRODUCCION.md) § "Configuración Django"
-3. Comenzar con abstractUser migration
-
-### Para Frontend Developer:
-1. Leer [PLAN_EQUIPOS_SPRINT_1.md](PLAN_EQUIPOS_SPRINT_1.md) — tu rol
-2. Revisar [ASIGNACIONES_SPRINT_1_A_6.md](ASIGNACIONES_SPRINT_1_A_6.md) Sprint 1 sección Frontend
-3. Revisar setup React + conectar API (localhost:8000)
+No se incluyen documentos internos de planificacion, gobernanza o material confidencial asociado al proyecto original.
 
 ---
 
@@ -287,28 +223,9 @@ Cada sprint tiene output claro:
 
 ---
 
-## 📞 Contacto / Soporte
+## Nota
 
-- **Bloqueadores técnicos Sprint 1:** Respuesta < 4 horas
-- **Decisiones arquitectónicas:** Revisar ARQUITECTURA_DESPLIEGUE_PRODUCCION.md primero
-- **Reuniones:** Lunes 30min, Viernes 45min (obligatorias ambas)
-
----
-
-## 📊 Métricas de Éxito
-
-**Sprint 1 (mínimo):**
-- ✅ 3+ commits/persona/semana
-- ✅ 1-2 PRs descriptivos/persona/semana
-- ✅ Demo funcional viernes
-- ✅ 0 errores de código muerto (flake8 + tests pasan)
-
-**Global (6 sprints):**
-- ✅ Arquitectura profesional (no improvisada)
-- ✅ CI/CD automático
-- ✅ Código versionado en Git con historia limpia
-- ✅ Deployment a Render sin manual work
-- ✅ < 1% errores 500 en producción
+Si deseas ver una demo tecnica puntual o detalles de implementacion por modulo, se puede presentar una demostracion guiada en contexto academico o de entrevista tecnica.
 
 ---
 
@@ -323,6 +240,4 @@ Cada sprint tiene output claro:
 
 ---
 
-**Próximo paso:** Reunión Lunes 24 feb @ 10 AM (30 min)  
-**Estado:** Sprint 1 iniciando  
-**Última actualización:** 23 febrero 2026
+**Estado del repositorio publico:** version de portafolio

@@ -7,9 +7,13 @@ from .views import home
 # Importar ViewSets
 from apps.users.views import UserViewSet, AuditLogViewSet
 from apps.companies.views import CompanyViewSet
-from apps.projects.views import ProjectViewSet, ProjectUserViewSet
+from apps.projects.views import ProjectViewSet, ProjectUserViewSet, ProjectContactViewSet
 from apps.phases.views import PhaseViewSet
 from apps.tasks.views import TaskViewSet
+from apps.contacts.views import ContactViewSet
+from apps.documents.views import DocumentViewSet
+from apps.assets.views import AssetViewSet
+from apps.risks.views import RiskViewSet
 
 # Crear un único router compartido para evitar conflictos
 router = DefaultRouter()
@@ -18,8 +22,13 @@ router.register(r'audit-logs', AuditLogViewSet)
 router.register(r'companies', CompanyViewSet)
 router.register(r'projects', ProjectViewSet)
 router.register(r'project-users', ProjectUserViewSet)
+router.register(r'project-contacts', ProjectContactViewSet)
 router.register(r'phases', PhaseViewSet)
 router.register(r'tasks', TaskViewSet)
+router.register(r'contacts', ContactViewSet)
+router.register(r'documents', DocumentViewSet)
+router.register(r'assets', AssetViewSet, basename='assets')
+router.register(r'risks', RiskViewSet, basename='risk')
 
 urlpatterns = [
     path('', home, name='home'),  # Ruta raíz

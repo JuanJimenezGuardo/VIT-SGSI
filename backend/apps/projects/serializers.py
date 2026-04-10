@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Project, ProjectUser
+from django.core.exceptions import ValidationError as DjangoValidationError
+from rest_framework.exceptions import ValidationError as DRFValidationError
+from .models import Project, ProjectUser, ProjectContact
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -9,8 +11,12 @@ class ProjectSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Project
-        fields = ['id', 'name', 'description', 'company', 'company_name', 'status', 'start_date', 'end_date', 'created_by', 'created_by_name', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        fields = [
+            'id', 'name', 'description', 'company', 'company_name', 'status',
+            'planned_start_date', 'planned_end_date', 'actual_start_date', 'actual_end_date',
+            'created_by', 'created_by_name', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', 'created_by', 'created_by_name']
 
 
 class ProjectUserSerializer(serializers.ModelSerializer):
@@ -26,4 +32,29 @@ class ProjectUserSerializer(serializers.ModelSerializer):
         model = ProjectUser
         fields = ['id', 'project', 'project_name', 'user', 'username', 'user_email', 'role', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
+
+
+class ProjectContactSerializer(serializers.ModelSerializer):
+    contact_name = serializers.CharField(source='contact.full_name', read_only=True)
+    project_name = serializers.CharField(source='project.name', read_only=True)
+
+    class Meta:
+        model = ProjectContact
+        fields = [
+            'id', 'project', 'project_name', 'contact', 'contact_name',
+            'contact_role', 'is_primary', 'work_notes', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']
+
+    def create(self, validated_data):
+        try:
+            return super().create(validated_data)
+        except DjangoValidationError as exc:
+            raise DRFValidationError(exc.message_dict if hasattr(exc, 'message_dict') else exc.messages)
+
+    def update(self, instance, validated_data):
+        try:
+            return super().update(instance, validated_data)
+        except DjangoValidationError as exc:
+            raise DRFValidationError(exc.message_dict if hasattr(exc, 'message_dict') else exc.messages)
 

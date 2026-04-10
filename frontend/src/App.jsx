@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from './context/auth-context';
+import { AuthContext } from './context/AuthContext';
 import Login from './pages/Login';
-import Dashboard from './pages/dashboard';
+import Dashboard from './pages/Dashboard';
 import ProjectDetail from './pages/ProjectDetail'; // Importamos la nueva página de detalles
 
 // Componente para proteger las rutas privadas

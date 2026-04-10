@@ -1,6 +1,7 @@
-from django.test import TestCase
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError, transaction
+from django.test import TestCase
+
 from apps.users.models import User
 
 
@@ -20,7 +21,6 @@ class UserModelTest(TestCase):
         )
 
     def test_create_user_with_all_fields(self):
-        # crear user con todos los campos
         user = User.objects.create(
             username='testuser2',
             email='testuser2@example.com',
@@ -53,7 +53,6 @@ class UserModelTest(TestCase):
         self.assertEqual(str(user), expected)
 
     def test_get_full_name_method(self):
-        # probar metodo get_full_name
         user = User.objects.create(
             username='mariagonzalez',
             email='mariagonzalez@example.com',
@@ -66,7 +65,6 @@ class UserModelTest(TestCase):
         self.assertEqual(user.get_full_name(), expected_full_name)
 
     def test_role_choices_validation(self):
-        # verificar roles validos
         valid_roles = ['ADMIN', 'CONSULTANT', 'CLIENT']
 
         for role in valid_roles:
@@ -79,7 +77,7 @@ class UserModelTest(TestCase):
             try:
                 user.full_clean()
             except ValidationError:
-                self.fail(f"Role valido {role} lanzo ValidationError inesperadamente.")
+                self.fail(f'Role valido {role} lanzo ValidationError inesperadamente.')
 
         invalid_user = User(
             username='invalid_user',
@@ -92,7 +90,6 @@ class UserModelTest(TestCase):
             invalid_user.full_clean()
 
     def test_default_role_is_client(self):
-        # role por defecto debe ser CLIENT
         user = User.objects.create(
             username='defaultrole',
             email='defaultrole@example.com',
@@ -101,7 +98,6 @@ class UserModelTest(TestCase):
         self.assertEqual(user.role, 'CLIENT')
 
     def test_unique_username_and_email(self):
-        # username es unico; email puede repetirse en el modelo actual
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
                 User.objects.create(

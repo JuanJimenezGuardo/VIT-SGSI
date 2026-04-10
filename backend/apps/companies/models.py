@@ -1,16 +1,16 @@
 from django.db import models
 
 class Company(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     rfc = models.CharField(max_length=13, unique=True)
     email = models.EmailField()
     phone = models.CharField(max_length=20, blank=True)
-    address = models.TextField()
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    country = models.CharField(max_length=100, default='Colombia')
-    contact_person = models.CharField(max_length=255)
-    contact_position = models.CharField(max_length=255)
+    address = models.TextField(blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, default='Colombia', blank=True)
+    sector = models.CharField(max_length=120, blank=True)
+    employee_count = models.PositiveIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

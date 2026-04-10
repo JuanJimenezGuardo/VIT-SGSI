@@ -19,7 +19,7 @@ def log_project_save(sender, instance, created, **kwargs):
         'name': instance.name,
         'company': instance.company.name,
         'status': instance.status,
-        'start_date': str(instance.start_date),
+        'planned_start_date': str(instance.planned_start_date),
     }
     
     AuditLog.objects.create(
@@ -59,7 +59,7 @@ def log_phase_save(sender, instance, created, **kwargs):
         'name': instance.name,
         'type': instance.type,
         'project': instance.project.name,
-        'start_date': str(instance.start_date),
+        'planned_start_date': str(instance.planned_start_date),
     }
     
     AuditLog.objects.create(
